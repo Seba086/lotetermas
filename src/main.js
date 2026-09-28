@@ -8,6 +8,7 @@ import { CONFIG } from './config.js';
 import { initSlider } from './slider.js';
 import { initGallery } from './gallery.js';
 import { initVolume, initWaffles, initHub, initLotShot } from './lot-graphics.js';
+import { initStory } from './story.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,7 +80,7 @@ $$('.site-nav a').forEach((link) => {
 const motion = { paused: reduced, onChange: null };
 
 /* ---------- videos de las bandas: cargan y se reproducen solo a la vista ---------- */
-const bandVideos = $$('.video-band [data-video]');
+const bandVideos = $$('.video-band [data-video], .story [data-video]');
 const inViewVideos = new Set();
 function loadVideo(v) {
   const src = v.querySelector('source[data-src]');
@@ -109,6 +110,7 @@ const volume = initVolume({ reduced });
 initWaffles({ reduced });
 initHub({ reduced });
 initLotShot({ reduced });
+initStory($('[data-story]'), { reduced });
 
 /* ---------- calculadora del lote ---------- */
 const FOS = 0.5;

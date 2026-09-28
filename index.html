@@ -318,18 +318,57 @@
       </div>
     </section>
 
-    <!-- ============ VIDEO TERRENO ============ -->
-    <section class="video-band" id="lote" aria-labelledby="lote-title">
-      <div class="video-band__media" data-parallax-bg>
-        <video data-video data-lazy-video muted loop playsinline preload="none" poster="/video/terreno-poster.jpg" aria-hidden="true" tabindex="-1">
-          <source data-src="/video/terreno.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div class="video-band__shade" aria-hidden="true"></div>
-      <div class="video-band__content container">
-        <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">04</span> El lote</p>
-        <h2 class="masthead masthead--band" id="lote-title" data-reveal>Todo comienza en este lote</h2>
-        <p class="lead lead--light" data-reveal>Un espacio destinado al desarrollo del primer hotel 4 estrellas de Tapalqué.</p>
+    <!-- ============ LOTE: RELATO CON SCROLL ============ -->
+    <section class="story" id="lote" aria-labelledby="story-title" data-story>
+      <div class="story__pin">
+        <div class="story__media" data-story-media>
+          <video data-video data-lazy-video muted loop playsinline preload="none" poster="/video/terreno-poster.jpg" aria-hidden="true" tabindex="-1">
+            <source data-src="/video/terreno.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="story__shade" aria-hidden="true"></div>
+
+        <div class="story__stage container">
+          <p class="eyebrow eyebrow--light story__eyebrow"><span class="eyebrow__num">04</span> El lote</p>
+
+          <div class="story__steps">
+            <div class="story__step" data-story-step>
+              <h2 class="story__phrase" id="story-title" data-story-phrase>Todo comienza en este lote</h2>
+              <aside class="glass story__card story__card--a" data-story-card>
+                <span class="glass__icon" aria-hidden="true"><svg><use href="#i-ruler"/></svg></span>
+                <p class="glass__k">Superficie</p>
+                <p class="glass__v">5.000 – 10.000&nbsp;m²</p>
+                <p class="glass__t">Se define según lo que oferte y proponga el inversor.</p>
+              </aside>
+            </div>
+
+            <div class="story__step" data-story-step>
+              <p class="story__phrase" data-story-phrase>Un espacio destinado al desarrollo del primer hotel 4&nbsp;estrellas de Tapalqué.</p>
+              <aside class="glass story__card story__card--b" data-story-card>
+                <span class="glass__icon" aria-hidden="true"><svg><use href="#i-star"/></svg></span>
+                <p class="glass__k">Destino</p>
+                <p class="glass__v">Hotel 4★ o 3★ superior</p>
+                <p class="glass__t">Mínimo 60 plazas y salón de eventos para 120 personas.</p>
+              </aside>
+            </div>
+
+            <div class="story__step" data-story-step>
+              <p class="story__phrase" data-story-phrase>Una oportunidad única: más de 120 mil turistas en los primeros tres años.</p>
+              <aside class="glass story__card story__card--c" data-story-card>
+                <span class="glass__icon" aria-hidden="true"><svg><use href="#i-users"/></svg></span>
+                <p class="glass__k">Demanda</p>
+                <p class="glass__v">+120.000 turistas</p>
+                <p class="glass__t">Parte de los contingentes hoy se aloja en ciudades vecinas.</p>
+              </aside>
+            </div>
+          </div>
+
+          <ol class="story__dots" aria-hidden="true">
+            <li data-story-dot><span>01</span></li>
+            <li data-story-dot><span>02</span></li>
+            <li data-story-dot><span>03</span></li>
+          </ol>
+        </div>
       </div>
     </section>
 
