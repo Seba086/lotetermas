@@ -5,6 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import logoSvg from './assets/logo.svg?raw';
 import { CONFIG } from './config.js';
+import { initSlider } from './slider.js';
+import { initGallery } from './gallery.js';
+import { initVolume, initWaffles, initHub, initLotShot } from './lot-graphics.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -71,14 +74,13 @@ $$('.site-nav a').forEach((link) => {
   });
 });
 
-/* ---------- videos de fondo ---------- */
-const videos = $$('[data-video]');
-const toggle = $('[data-video-toggle]');
-let userPaused = reduced; // con reduced motion arrancan pausados
-function setPausedUI() {
-  toggle.setAttribute('aria-pressed', String(userPaused));
-  toggle.setAttribute('aria-label', userPaused ? 'Reproducir videos de fondo' : 'Pausar videos de fondo');
-}
+/* ---------- estado de pausa compartido (slider + videos de fondo) ---------- */
+// Con reduced motion todo arranca pausado; el botón de pausa del hero controla ambos
+const motion = { paused: reduced, onChange: null };
+
+/* ---------- videos de las bandas: cargan y se reproducen solo a la vista ---------- */
+const bandVideos = $$('.video-band [data-video]');
+const inViewVideos = new Set();
 function loadVideo(v) {
   const src = v.querySelector('source[data-src]');
   if (src && !src.src) { src.src = src.dataset.src; v.load(); }
@@ -86,26 +88,27 @@ function loadVideo(v) {
 const videoIO = new IntersectionObserver((entries) => {
   entries.forEach(({ target: v, isIntersecting }) => {
     if (isIntersecting) {
+      inViewVideos.add(v);
       loadVideo(v);
-      if (!userPaused) v.play().catch(() => {});
+      if (!motion.paused) v.play().catch(() => {});
     } else {
+      inViewVideos.delete(v);
       v.pause();
     }
   });
 }, { rootMargin: '200px 0px' });
-videos.forEach((v) => {
-  if (reduced) { v.removeAttribute('autoplay'); v.pause(); }
-  videoIO.observe(v);
-});
-toggle.addEventListener('click', () => {
-  userPaused = !userPaused;
-  videos.forEach((v) => {
-    if (userPaused) v.pause();
-    else if (v.getBoundingClientRect().top < innerHeight && v.getBoundingClientRect().bottom > 0) { loadVideo(v); v.play().catch(() => {}); }
-  });
-  setPausedUI();
-});
-setPausedUI();
+bandVideos.forEach((v) => videoIO.observe(v));
+motion.onChange = (paused) => inViewVideos.forEach((v) => (paused ? v.pause() : v.play().catch(() => {})));
+
+/* ---------- hero, galería y gráficos ---------- */
+const heroSlider = $('[data-hs]');
+if (reduced) heroSlider.querySelectorAll('video').forEach((v) => { v.removeAttribute('autoplay'); v.pause(); });
+initSlider(heroSlider, { reduced, motion });
+initGallery($('[data-gallery]'), { reduced });
+const volume = initVolume({ reduced });
+initWaffles({ reduced });
+initHub({ reduced });
+initLotShot({ reduced });
 
 /* ---------- calculadora del lote ---------- */
 const FOS = 0.5;
@@ -153,6 +156,8 @@ function updateCalc() {
   gsap.to(plan.fos, { attr: { x: fx, y: fy, width: fw, height: fh }, duration: d, ease, overwrite: 'auto' });
   gsap.to(plan.tagLot, { attr: { x: lx + 10, y: ly + 20 }, duration: d, ease, overwrite: 'auto' });
   gsap.to(plan.tagFos, { attr: { x: fx + 10, y: fy + 20 }, duration: d, ease, overwrite: 'auto' });
+
+  volume.setArea(s);
 
   clearTimeout(liveTimer);
   liveTimer = setTimeout(() => {
@@ -253,13 +258,8 @@ mapIO.observe(mapEl);
    MOVIMIENTO
    ========================================================= */
 if (!reduced) {
-  // Hero: entrada
-  gsap.timeline({ defaults: { ease: 'expo.out' } })
-    .to('[data-hero-line]', { y: 0, duration: 1.4, stagger: 0.12, delay: 0.15 })
-    .to('[data-hero-item]', { opacity: 1, duration: 1, stagger: 0.1 }, '-=1');
-
-  // Hero: el titular se aleja al scrollear
-  gsap.to('.hero__content', {
+  // Hero: el contenido se aleja al scrollear
+  gsap.to('.hs__content', {
     yPercent: -12, opacity: 0.2, ease: 'none',
     scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true },
   });
@@ -351,26 +351,6 @@ if (!reduced) {
   gsap.from('[data-plan-fos]', {
     opacity: 0, scale: 0.6, transformOrigin: '50% 50%', duration: 1.2, delay: 0.3, ease: 'expo.out',
     scrollTrigger: { trigger: '[data-plan]', start: 'top 80%', once: true },
-  });
-
-  // Galería horizontal fijada (solo desktop; en móvil es un carrusel con scroll-snap)
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 761px)', () => {
-    const track = $('[data-gallery-track]');
-    const viewport = $('.gallery__viewport');
-    const distance = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-    gsap.to(track, {
-      x: () => -distance(),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '[data-gallery]',
-        start: 'top top',
-        end: () => `+=${distance()}`,
-        pin: true,
-        scrub: 1,
-        invalidateOnRefresh: true,
-      },
-    });
   });
 
   // Palabra gigante del footer

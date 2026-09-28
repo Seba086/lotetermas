@@ -85,41 +85,114 @@
   <main id="contenido">
 
     <!-- ============ HERO ============ -->
-    <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="hero__media" data-parallax-bg>
-        <video class="hero__video" data-video autoplay muted loop playsinline preload="metadata" poster="/video/hero-poster.jpg" aria-hidden="true" tabindex="-1">
-          <source src="/video/hero.mp4" type="video/mp4" />
-        </video>
-      </div>
-      <div class="hero__shade" aria-hidden="true"></div>
+    <section class="hero hs" id="inicio" aria-roledescription="carrusel" aria-label="Presentación del proyecto" data-hs>
+      <div class="hs__slides" aria-live="off" data-hs-live>
 
-      <div class="hero__content">
-        <p class="eyebrow eyebrow--light" data-hero-item>Municipio de Tapalqué · Oportunidad de inversión</p>
-        <h1 class="masthead" id="hero-title">
-          <span class="line"><span data-hero-line>El primero.</span></span>
-          <span class="line"><span data-hero-line>El único.</span></span>
-        </h1>
-        <div class="hero__foot">
-          <p class="hero__lead" data-hero-item>El Municipio de Tapalqué pone a disposición una oportunidad de inversión para el desarrollo del primer hotel dentro del Complejo Termas Tapalqué.</p>
-          <div class="hero__actions" data-hero-item>
-            <a class="pill pill--light" href="#lote">
-              Conocer el lote
-              <span class="pill__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
-            </a>
-            <button class="round-btn round-btn--glass" type="button" data-video-toggle aria-pressed="false" aria-label="Pausar video de fondo">
-              <svg class="icon-pause"><use href="#i-pause"/></svg>
-              <svg class="icon-play"><use href="#i-play"/></svg>
-            </button>
+        <article id="hs-1" class="hs__slide is-active" role="group" aria-roledescription="diapositiva" aria-label="1 de 4" data-hs-slide>
+          <div class="hs__media" data-parallax-bg>
+            <video class="hs__bg" data-hs-video autoplay muted loop playsinline preload="metadata" poster="/video/hero-poster.jpg" aria-hidden="true" tabindex="-1">
+              <source src="/video/hero.mp4" type="video/mp4" />
+            </video>
           </div>
+          <div class="hs__content">
+            <p class="eyebrow eyebrow--light" data-hs-item>Municipio de Tapalqué · Oportunidad de inversión</p>
+            <h1 class="masthead" data-hs-title>
+              <span class="line"><span>El primero.</span></span>
+              <span class="line"><span>El único.</span></span>
+            </h1>
+            <div class="hs__foot" data-hs-item>
+              <p class="hs__lead">El Municipio de Tapalqué pone a disposición una oportunidad de inversión para el desarrollo del primer hotel dentro del Complejo Termas Tapalqué.</p>
+              <a class="pill pill--light" href="#oportunidad">
+                Conocer la oportunidad
+                <span class="pill__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article id="hs-2" class="hs__slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 4" aria-hidden="true" data-hs-slide>
+          <div class="hs__media" data-parallax-bg>
+            <img class="hs__bg" src="/img/hero/corazon.webp" alt="" width="1920" height="1080" decoding="async" />
+          </div>
+          <div class="hs__content">
+            <p class="eyebrow eyebrow--light" data-hs-item>Ubicación privilegiada</p>
+            <h2 class="masthead masthead--md" data-hs-title>
+              <span class="line"><span>Un hotel en el corazón</span></span>
+              <span class="line"><span>de Termas Tapalqué</span></span>
+            </h2>
+            <div class="hs__foot" data-hs-item>
+              <p class="hs__lead">Alojamiento, bienestar, naturaleza y turismo en un mismo destino.</p>
+              <a class="pill pill--light" href="#corazon">
+                Ver la ubicación
+                <span class="pill__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article id="hs-3" class="hs__slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 4" aria-hidden="true" data-hs-slide>
+          <div class="hs__media" data-parallax-bg>
+            <img class="hs__bg" src="/img/hero/oportunidad.webp" alt="" width="1920" height="1080" decoding="async" />
+          </div>
+          <div class="hs__content">
+            <p class="eyebrow eyebrow--light" data-hs-item>Una oportunidad única</p>
+            <h2 class="masthead masthead--md" data-hs-title>
+              <span class="line"><span>+120 mil turistas</span></span>
+              <span class="line"><span>en tres años</span></span>
+            </h2>
+            <div class="hs__foot" data-hs-item>
+              <p class="hs__lead">Parte de los contingentes que llegan a Tapalqué deben alojarse en ciudades vecinas por falta de capacidad hotelera.</p>
+              <a class="pill pill--light" href="#oportunidad-unica">
+                Ver la demanda
+                <span class="pill__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <article id="hs-4" class="hs__slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 4" aria-hidden="true" data-hs-slide>
+          <div class="hs__media" data-parallax-bg>
+            <img class="hs__bg" src="/img/hero/lote.webp" alt="" width="1920" height="1080" decoding="async" />
+          </div>
+          <div class="hs__content">
+            <p class="eyebrow eyebrow--light" data-hs-item>El lote</p>
+            <h2 class="masthead masthead--md" data-hs-title>
+              <span class="line"><span>Todo comienza</span></span>
+              <span class="line"><span>en este lote</span></span>
+            </h2>
+            <div class="hs__foot" data-hs-item>
+              <ul class="hs__facts" role="list">
+                <li>5.000 – 10.000&nbsp;m²</li>
+                <li>Hotel 4★ o 3★ superior</li>
+                <li>Mínimo 60 plazas</li>
+              </ul>
+              <a class="pill pill--light" href="#lote">
+                Explorar el lote
+                <span class="pill__icon" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="hs__shade" aria-hidden="true"></div>
+
+      <div class="hs__controls">
+        <div class="hs__tabs" role="tablist" aria-label="Elegir diapositiva">
+          <button class="hs__tab is-active" type="button" role="tab" aria-selected="true" aria-controls="hs-1" data-hs-tab><span class="hs__num">01</span><span class="hs__name">El primero</span><span class="hs__bar" aria-hidden="true"><span></span></span></button>
+          <button class="hs__tab" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="hs-2" data-hs-tab><span class="hs__num">02</span><span class="hs__name">Ubicación</span><span class="hs__bar" aria-hidden="true"><span></span></span></button>
+          <button class="hs__tab" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="hs-3" data-hs-tab><span class="hs__num">03</span><span class="hs__name">Oportunidad</span><span class="hs__bar" aria-hidden="true"><span></span></span></button>
+          <button class="hs__tab" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="hs-4" data-hs-tab><span class="hs__num">04</span><span class="hs__name">El lote</span><span class="hs__bar" aria-hidden="true"><span></span></span></button>
+        </div>
+        <div class="hs__btns">
+          <button class="round-btn round-btn--glass" type="button" data-hs-prev aria-label="Diapositiva anterior"><svg class="flip"><use href="#i-arrow"/></svg></button>
+          <button class="round-btn round-btn--glass" type="button" data-hs-play aria-pressed="false" aria-label="Pausar presentación">
+            <svg class="icon-pause"><use href="#i-pause"/></svg>
+            <svg class="icon-play"><use href="#i-play"/></svg>
+          </button>
+          <button class="round-btn round-btn--glass" type="button" data-hs-next aria-label="Diapositiva siguiente"><svg><use href="#i-arrow"/></svg></button>
         </div>
       </div>
-
-      <dl class="hero__facts" data-hero-item>
-        <div><dt>Superficie</dt><dd>5.000 – 10.000&nbsp;m²</dd></div>
-        <div><dt>Destino</dt><dd>Hotel 4★ o 3★ superior</dd></div>
-        <div><dt>Capacidad</dt><dd>Mínimo 60 plazas</dd></div>
-        <div><dt>Ubicación</dt><dd>Dentro del complejo termal</dd></div>
-      </dl>
     </section>
 
     <!-- ============ OPORTUNIDAD ============ -->
@@ -145,7 +218,7 @@
     </section>
 
     <!-- ============ CORAZÓN DE TERMAS ============ -->
-    <section class="section heart" aria-labelledby="heart-title">
+    <section class="section heart" id="corazon" aria-labelledby="heart-title">
       <div class="container heart__grid">
         <figure class="heart__figure media-frame" data-reveal>
           <img src="/img/complejo-aereo.webp" alt="Vista aérea del Complejo Termas Tapalqué con la Plaza de Aguas y las piscinas" width="1280" height="720" loading="lazy" decoding="async" data-parallax-img />
@@ -164,20 +237,23 @@
       </div>
     </section>
 
-    <!-- ============ DEMANDA ============ -->
-    <section class="section demand" aria-labelledby="demand-title">
+    <!-- ============ UNA OPORTUNIDAD ÚNICA ============ -->
+    <section class="section unique" id="oportunidad-unica" aria-labelledby="unique-title">
       <div class="container">
-        <div class="demand__top">
-          <p class="eyebrow" data-reveal><span class="eyebrow__num">03</span> Demanda comprobada</p>
-          <h2 class="heading" id="demand-title" data-reveal>Más de 120 mil turistas en los primeros tres años</h2>
+        <div class="unique__head">
+          <p class="eyebrow" data-reveal><span class="eyebrow__num">03</span> Una oportunidad única</p>
+          <h2 class="display" id="unique-title" data-reveal>Una oportunidad única</h2>
         </div>
 
-        <p class="metric metric--xl" data-reveal aria-label="Más de 120.000 turistas">
-          <span class="metric__num" data-count="120000" aria-hidden="true">120<span class="metric__punct">.</span>000</span><span class="metric__punct" aria-hidden="true">+</span>
-        </p>
-
-        <div class="demand__grid">
-          <div class="demand__copy">
+        <!-- Demanda -->
+        <div class="unique__demand">
+          <div class="unique__metric">
+            <h3 class="heading" data-reveal>Más de 120 mil turistas en los primeros tres años</h3>
+            <p class="metric metric--xl" data-reveal aria-label="Más de 120.000 turistas">
+              <span class="metric__num" data-count="120000" aria-hidden="true">120<span class="metric__punct">.</span>000</span><span class="metric__punct" aria-hidden="true">+</span>
+            </p>
+          </div>
+          <div class="unique__copy">
             <p class="lead" data-reveal>Parte de los contingentes que llegan a Tapalqué deben alojarse en ciudades vecinas por falta de capacidad hotelera.</p>
             <p class="body" data-reveal>Este dato permite captar una demanda de alojamiento con ocupación asegurada desde el día uno.</p>
           </div>
@@ -193,27 +269,51 @@
               <div class="bars__col is-accent" style="--v:1"><span class="bars__val">121k</span><span class="bars__bar" data-bar></span><span class="bars__lbl">Año 3</span></div>
             </div>
           </figure>
-        </div>
-      </div>
-    </section>
 
-    <!-- ============ MÁS ESTADÍAS ============ -->
-    <section class="section stays" aria-labelledby="stays-title">
-      <div class="container stays__grid">
-        <div>
-          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">04</span> Nuevos públicos</p>
-          <h2 class="display" id="stays-title" data-reveal>Más turistas. Más estadías.</h2>
+          <!-- Flujo: hoy vs. con hotel -->
+          <figure class="flow card card--sand" data-reveal data-flow>
+            <figcaption class="chart__head">
+              <span class="chart__title">¿Dónde duermen los visitantes?</span>
+              <span class="chart__note">Esquema conceptual</span>
+            </figcaption>
+            <div class="flow__rows">
+              <div class="flow__row">
+                <p class="flow__k">Hoy <span>Parte de los contingentes se aloja fuera de Tapalqué</span></p>
+                <div class="flow__path">
+                  <span class="flow__node">Termas</span>
+                  <span class="flow__line" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                  <span class="flow__node flow__node--muted">Ciudades vecinas</span>
+                </div>
+              </div>
+              <div class="flow__row">
+                <p class="flow__k flow__k--accent">Con el hotel <span>Las estadías quedan dentro del destino</span></p>
+                <div class="flow__path">
+                  <span class="flow__node">Termas</span>
+                  <span class="flow__line flow__line--short" aria-hidden="true"><i></i><i></i><i></i></span>
+                  <span class="flow__node flow__node--accent">Hotel en el complejo</span>
+                </div>
+              </div>
+            </div>
+          </figure>
         </div>
-        <div class="stays__copy">
-          <p class="lead" data-reveal>Una infraestructura que permitirá que Tapalqué no solo reciba visitantes, sino que también pueda alojarlos y ofrecerles nuevos motivos para quedarse.</p>
-          <p class="body" data-reveal>Atraer otro tipo de públicos, como el turismo de reuniones.</p>
-          <ul class="tabs-row" role="list" data-reveal>
-            <li>Congresos</li>
-            <li>Convenciones</li>
-            <li>Ferias</li>
-            <li>Escapadas de bienestar</li>
-            <li>Contingentes</li>
-          </ul>
+
+        <!-- Nuevos públicos -->
+        <div class="unique__stays card card--dark">
+          <div class="unique__stays-media" aria-hidden="true">
+            <img src="/img/lote/congresos.webp" alt="" width="1000" height="1500" loading="lazy" decoding="async" data-parallax-img />
+          </div>
+          <div class="unique__stays-copy">
+            <h3 class="display" data-reveal>Más turistas. Más estadías.</h3>
+            <p class="lead lead--light" data-reveal>Una infraestructura que permitirá que Tapalqué no solo reciba visitantes, sino que también pueda alojarlos y ofrecerles nuevos motivos para quedarse.</p>
+            <p class="body body--light" data-reveal>Atraer otro tipo de públicos, como el turismo de reuniones.</p>
+            <ul class="tabs-row" role="list" data-reveal>
+              <li>Congresos</li>
+              <li>Convenciones</li>
+              <li>Ferias</li>
+              <li>Escapadas de bienestar</li>
+              <li>Contingentes</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
@@ -227,7 +327,7 @@
       </div>
       <div class="video-band__shade" aria-hidden="true"></div>
       <div class="video-band__content container">
-        <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">05</span> El lote</p>
+        <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">04</span> El lote</p>
         <h2 class="masthead masthead--band" id="lote-title" data-reveal>Todo comienza en este lote</h2>
         <p class="lead lead--light" data-reveal>Un espacio destinado al desarrollo del primer hotel 4 estrellas de Tapalqué.</p>
       </div>
@@ -236,8 +336,38 @@
     <!-- ============ LOTE: CALCULADORA ============ -->
     <section class="section lot" aria-labelledby="lot-calc-title">
       <div class="container">
+
+        <!-- Captura simbólica sobre imagen de drone -->
+        <figure class="lotshot" data-reveal data-lotshot>
+          <div class="lotshot__frame">
+            <img src="/img/lote-campo.webp" alt="Vista aérea del Complejo Termas Tapalqué con el sector propuesto para el hotel marcado sobre el campo" width="1600" height="900" loading="lazy" decoding="async" />
+            <svg class="lotshot__svg" viewBox="0 0 1600 900" aria-hidden="true">
+              <polygon class="lotshot__area" points="150,500 430,510 610,427 330,417" />
+              <polygon class="lotshot__edge" points="150,500 430,510 610,427 330,417" pathLength="1" data-lotshot-edge />
+              <g class="lotshot__pin" transform="translate(380 463)">
+                <circle class="lotshot__pulse" r="18" />
+                <circle r="9" />
+              </g>
+            </svg>
+            <ul class="lotshot__tags" role="list">
+              <li class="lotshot__tag lotshot__tag--lot" style="--x:23.75%; --y:44%">Lote hotelero<span class="lotshot__extra"> · 5.000–10.000&nbsp;m²</span></li>
+              <li class="lotshot__tag" style="--x:37%; --y:22%">Plaza de Aguas</li>
+              <li class="lotshot__tag" style="--x:56%; --y:23%">Piscinas cubiertas</li>
+              <li class="lotshot__tag" style="--x:61%; --y:43%">Sector piscinas exteriores</li>
+              <li class="lotshot__tag" style="--x:79%; --y:55%">Laguna</li>
+            </ul>
+          </div>
+          <figcaption class="lotshot__cap">
+            <span>Captura ilustrativa</span>
+            <span>La ubicación y la superficie definitivas del lote se acuerdan con el Municipio.</span>
+          </figcaption>
+        </figure>
+
         <div class="lot__head">
-          <h2 class="heading" id="lot-calc-title" data-reveal>Superficie edificable</h2>
+          <div>
+            <p class="eyebrow" data-reveal><span class="eyebrow__num">04</span> El lote en números</p>
+            <h2 class="display" id="lot-calc-title" data-reveal>Superficie edificable</h2>
+          </div>
           <p class="body" data-reveal>La superficie del lote se define según lo que oferte y proponga el inversor: entre <strong>5.000&nbsp;m²</strong> y <strong>10.000&nbsp;m²</strong>. Mové el control para ver cuánto se puede construir.</p>
         </div>
 
@@ -255,7 +385,7 @@
               <desc id="plan-desc">El rectángulo exterior representa el lote; el rectángulo interior, la huella máxima que admite el FOS 0,5.</desc>
               <defs>
                 <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                  <line x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="1" opacity=".22"/>
+                  <line pathLength="1" x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="1" opacity=".22"/>
                 </pattern>
               </defs>
               <rect class="plan__lot" data-plan-lot x="20" y="20" width="360" height="260" rx="2" pathLength="1"/>
@@ -263,7 +393,7 @@
               <text class="plan__tag" x="30" y="40" data-plan-tag-lot>LOTE</text>
               <text class="plan__tag plan__tag--accent" data-plan-tag-fos x="105" y="94">HUELLA MÁX. · FOS 0,5</text>
             </svg>
-            <p class="calc__note">Esquema proporcional. Cantidad de plantas sujeta al Código de Edificación municipal.</p>
+            <p class="calc__note">Planta proporcional. Cantidad de plantas sujeta al Código de Edificación municipal.</p>
           </div>
 
           <div class="calc__results">
@@ -281,43 +411,97 @@
           </div>
         </div>
 
-        <!-- Ficha técnica -->
+        <div class="lot__graphs">
+          <!-- Volumetría isométrica -->
+          <figure class="volume card card--porcelain" data-reveal>
+            <figcaption class="chart__head">
+              <span class="chart__title">Volumetría de referencia</span>
+              <span class="chart__note">Se actualiza con la superficie elegida</span>
+            </figcaption>
+            <svg class="volume__svg" viewBox="0 0 400 280" role="img" aria-labelledby="vol-title" data-volume>
+              <title id="vol-title">Volumetría isométrica: planta baja que ocupa la huella máxima y un nivel superior parcial que completa el FOT 0,6.</title>
+              <g data-volume-g></g>
+            </svg>
+            <ul class="legend" role="list">
+              <li><span class="legend__key legend__key--pb" aria-hidden="true"></span>Planta baja · hasta <strong data-vol-pb>3.750</strong>&nbsp;m²</li>
+              <li><span class="legend__key legend__key--up" aria-hidden="true"></span>Nivel superior · <strong data-vol-up>750</strong>&nbsp;m²</li>
+            </ul>
+          </figure>
+
+          <!-- Programa mínimo -->
+          <figure class="program card card--porcelain" data-reveal>
+            <figcaption class="chart__head">
+              <span class="chart__title">Programa mínimo requerido</span>
+              <span class="chart__note">Cada punto, una plaza o una persona</span>
+            </figcaption>
+            <div class="program__block">
+              <p class="program__num"><span>60</span> plazas</p>
+              <p class="program__txt">Equivalen a unas 30 habitaciones dobles (referencia).</p>
+              <div class="waffle waffle--beds" data-waffle="60" aria-hidden="true"></div>
+            </div>
+            <div class="program__block">
+              <p class="program__num"><span>120</span> personas</p>
+              <p class="program__txt">Capacidad del salón de eventos, más áreas gastronómicas y amenities.</p>
+              <div class="waffle waffle--seats" data-waffle="120" aria-hidden="true"></div>
+            </div>
+          </figure>
+        </div>
+
+        <!-- Ficha técnica con imágenes -->
         <ul class="specs" role="list">
-          <li class="spec card card--porcelain" data-reveal>
-            <svg aria-hidden="true"><use href="#i-ruler"/></svg>
-            <p class="spec__label">Superficie del lote</p>
-            <p class="spec__value">5.000 – 10.000&nbsp;m²</p>
-            <p class="spec__text">Mínima y máxima, en función de lo que oferte y proponga el inversor.</p>
+          <li class="pcard" data-reveal>
+            <img src="/img/lote-campo.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+            <div class="pcard__body">
+              <svg aria-hidden="true"><use href="#i-ruler"/></svg>
+              <p class="pcard__label">Superficie del lote</p>
+              <p class="pcard__value">5.000 – 10.000&nbsp;m²</p>
+              <p class="pcard__text">Mínima y máxima, en función de lo que oferte y proponga el inversor.</p>
+            </div>
           </li>
-          <li class="spec card card--porcelain" data-reveal>
-            <svg aria-hidden="true"><use href="#i-star"/></svg>
-            <p class="spec__label">Destino</p>
-            <p class="spec__value">Hotel 4★</p>
-            <p class="spec__text">Categoría prioritaria 4 estrellas o 3 estrellas superior.</p>
+          <li class="pcard" data-reveal>
+            <img src="/img/lote/hotel.webp" alt="" width="1000" height="1334" loading="lazy" decoding="async" />
+            <div class="pcard__body">
+              <svg aria-hidden="true"><use href="#i-star"/></svg>
+              <p class="pcard__label">Destino</p>
+              <p class="pcard__value">Hotel 4★</p>
+              <p class="pcard__text">Categoría prioritaria 4 estrellas o 3 estrellas superior.</p>
+            </div>
           </li>
-          <li class="spec card card--porcelain" data-reveal>
-            <svg aria-hidden="true"><use href="#i-bed"/></svg>
-            <p class="spec__label">Capacidad</p>
-            <p class="spec__value">60+ plazas</p>
-            <p class="spec__text">Debe contar con un mínimo de 60 plazas.</p>
+          <li class="pcard" data-reveal>
+            <img src="/img/lote/habitacion.webp" alt="" width="1000" height="1500" loading="lazy" decoding="async" />
+            <div class="pcard__body">
+              <svg aria-hidden="true"><use href="#i-bed"/></svg>
+              <p class="pcard__label">Capacidad</p>
+              <p class="pcard__value">60+ plazas</p>
+              <p class="pcard__text">Debe contar con un mínimo de 60 plazas.</p>
+            </div>
           </li>
-          <li class="spec card card--porcelain" data-reveal>
-            <svg aria-hidden="true"><use href="#i-users"/></svg>
-            <p class="spec__label">Infraestructura requerida</p>
-            <p class="spec__value">Salón 120 pers.</p>
-            <p class="spec__text">Salón de eventos para 120 personas y áreas de servicios gastronómicos y amenities.</p>
+          <li class="pcard" data-reveal>
+            <img src="/img/lote/salon.webp" alt="" width="1000" height="1500" loading="lazy" decoding="async" />
+            <div class="pcard__body">
+              <svg aria-hidden="true"><use href="#i-users"/></svg>
+              <p class="pcard__label">Infraestructura requerida</p>
+              <p class="pcard__value">Salón 120 pers.</p>
+              <p class="pcard__text">Salón de eventos para 120 personas y áreas de servicios gastronómicos y amenities.</p>
+            </div>
           </li>
-          <li class="spec card card--porcelain" data-reveal>
-            <svg aria-hidden="true"><use href="#i-layers"/></svg>
-            <p class="spec__label">Indicadores urbanísticos</p>
-            <p class="spec__value">FOS 0,5 · FOT 0,6</p>
-            <p class="spec__text">Factor de ocupación de suelo y factor de ocupación total.</p>
+          <li class="pcard" data-reveal>
+            <img src="/img/lote/planos.webp" alt="" width="1000" height="1334" loading="lazy" decoding="async" />
+            <div class="pcard__body">
+              <svg aria-hidden="true"><use href="#i-layers"/></svg>
+              <p class="pcard__label">Indicadores urbanísticos</p>
+              <p class="pcard__value">FOS 0,5 · FOT 0,6</p>
+              <p class="pcard__text">Factor de ocupación de suelo y factor de ocupación total.</p>
+            </div>
           </li>
-          <li class="spec card card--porcelain" data-reveal>
-            <svg aria-hidden="true"><use href="#i-building"/></svg>
-            <p class="spec__label">Cantidad de plantas</p>
-            <p class="spec__value">Según Código</p>
-            <p class="spec__text">Sujeto al Código de Edificación municipal.</p>
+          <li class="pcard" data-reveal>
+            <img src="/img/lote/fachada.webp" alt="" width="1000" height="1334" loading="lazy" decoding="async" />
+            <div class="pcard__body">
+              <svg aria-hidden="true"><use href="#i-building"/></svg>
+              <p class="pcard__label">Cantidad de plantas</p>
+              <p class="pcard__value">Según Código</p>
+              <p class="pcard__text">Sujeto al Código de Edificación municipal.</p>
+            </div>
           </li>
         </ul>
       </div>
@@ -325,23 +509,46 @@
 
     <!-- ============ SERVICIOS ============ -->
     <section class="section services" aria-labelledby="services-title">
-      <div class="container services__grid">
+      <div class="container">
         <div class="services__head">
-          <p class="eyebrow" data-reveal><span class="eyebrow__num">06</span> Servicios disponibles</p>
-          <h2 class="heading" id="services-title" data-reveal>Infraestructura lista para desarrollar</h2>
+          <p class="eyebrow" data-reveal><span class="eyebrow__num">05</span> Servicios disponibles</p>
+          <h2 class="display" id="services-title" data-reveal>Un lote conectado a todo lo que necesita</h2>
           <p class="body" data-reveal>El lote se integra a la infraestructura del complejo termal y a las redes de la ciudad.</p>
-          <p class="footnote" data-reveal>*Listado de referencia, sujeto a confirmación del Municipio.</p>
         </div>
-        <ul class="service-list" role="list">
-          <li data-reveal><svg aria-hidden="true"><use href="#i-thermal"/></svg><span>Agua termal del complejo</span></li>
-          <li data-reveal><svg aria-hidden="true"><use href="#i-drop"/></svg><span>Agua potable</span></li>
-          <li data-reveal><svg aria-hidden="true"><use href="#i-bolt"/></svg><span>Energía eléctrica</span></li>
-          <li data-reveal><svg aria-hidden="true"><use href="#i-flame"/></svg><span>Gas natural</span></li>
-          <li data-reveal><svg aria-hidden="true"><use href="#i-pipe"/></svg><span>Desagües cloacales</span></li>
-          <li data-reveal><svg aria-hidden="true"><use href="#i-wifi"/></svg><span>Conectividad</span></li>
-          <li data-reveal><svg aria-hidden="true"><use href="#i-road"/></svg><span>Acceso por Ruta Provincial 50</span></li>
-          <li data-reveal><svg aria-hidden="true"><use href="#i-light"/></svg><span>Alumbrado del complejo</span></li>
-        </ul>
+
+        <div class="hub" data-hub>
+          <svg class="hub__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <g class="hub__base">
+              <line pathLength="1" x1="50" y1="50" x2="50" y2="12" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="23.1" />
+              <line pathLength="1" x1="50" y1="50" x2="90" y2="50" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="76.9" />
+              <line pathLength="1" x1="50" y1="50" x2="50" y2="88" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="76.9" />
+              <line pathLength="1" x1="50" y1="50" x2="10" y2="50" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="23.1" />
+            </g>
+            <g class="hub__flow">
+              <line pathLength="1" x1="50" y1="50" x2="50" y2="12" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="23.1" />
+              <line pathLength="1" x1="50" y1="50" x2="90" y2="50" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="76.9" />
+              <line pathLength="1" x1="50" y1="50" x2="50" y2="88" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="76.9" />
+              <line pathLength="1" x1="50" y1="50" x2="10" y2="50" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="23.1" />
+            </g>
+          </svg>
+
+          <div class="hub__core">
+            <img src="/img/lote-campo.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
+            <span class="hub__core-label">El lote</span>
+          </div>
+
+          <ul class="hub__nodes" role="list">
+            <li class="hub__node" style="--x:50%; --y:12%"><svg aria-hidden="true"><use href="#i-thermal"/></svg><span>Agua termal del complejo</span></li>
+            <li class="hub__node" style="--x:78.3%; --y:23.1%"><svg aria-hidden="true"><use href="#i-drop"/></svg><span>Agua potable</span></li>
+            <li class="hub__node" style="--x:90%; --y:50%"><svg aria-hidden="true"><use href="#i-bolt"/></svg><span>Energía eléctrica</span></li>
+            <li class="hub__node" style="--x:78.3%; --y:76.9%"><svg aria-hidden="true"><use href="#i-flame"/></svg><span>Gas natural</span></li>
+            <li class="hub__node" style="--x:50%; --y:88%"><svg aria-hidden="true"><use href="#i-pipe"/></svg><span>Desagües cloacales</span></li>
+            <li class="hub__node" style="--x:21.7%; --y:76.9%"><svg aria-hidden="true"><use href="#i-wifi"/></svg><span>Conectividad</span></li>
+            <li class="hub__node" style="--x:10%; --y:50%"><svg aria-hidden="true"><use href="#i-road"/></svg><span>Acceso por Ruta Provincial 50</span></li>
+            <li class="hub__node" style="--x:21.7%; --y:23.1%"><svg aria-hidden="true"><use href="#i-light"/></svg><span>Alumbrado del complejo</span></li>
+          </ul>
+        </div>
+        <p class="footnote services__note">*Listado de referencia, sujeto a confirmación del Municipio.</p>
       </div>
     </section>
 
@@ -349,7 +556,7 @@
     <section class="section terms" aria-labelledby="terms-title">
       <div class="container">
         <div class="terms__head">
-          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">07</span> Condiciones de venta</p>
+          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">06</span> Condiciones de venta</p>
           <h2 class="display" id="terms-title" data-reveal>Régimen de adjudicación</h2>
           <p class="lead lead--light" data-reveal>La transferencia del inmueble por parte del Municipio de Tapalqué se realiza mediante el régimen de <strong>cargo obligatorio y resolutorio</strong> (arts. 354 y 356 del Código Civil y Comercial de la Nación), garantizando la transparencia de la operación y el destino exclusivo del terreno para el desarrollo turístico.</p>
         </div>
@@ -402,7 +609,8 @@
       </div>
       <div class="video-band__shade" aria-hidden="true"></div>
       <div class="video-band__content container">
-        <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">08</span> Termas Tapalqué</p>
+        <span class="band-logo" data-logo data-reveal></span>
+        <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">07</span> Termas Tapalqué</p>
         <h2 class="masthead masthead--band" id="termas-title" data-reveal>Siempre es temporada alta</h2>
         <p class="lead lead--light" data-reveal>Un nuevo proyecto hotelero para un destino que sigue creciendo.</p>
       </div>
@@ -443,60 +651,224 @@
     </section>
 
     <!-- ============ TERMAS: GALERÍA HORIZONTAL ============ -->
-    <section class="gallery" aria-labelledby="gallery-title" data-gallery>
+    <section class="gallery" id="galeria" aria-labelledby="gallery-title" data-gallery>
       <div class="gallery__intro container">
-        <h2 class="heading" id="gallery-title">Mucho más que aguas termales</h2>
-        <p class="body">Un complejo de 20 espacios pensado para el bienestar durante las cuatro estaciones.</p>
+        <div>
+          <h2 class="display" id="gallery-title" data-reveal>Mucho más que aguas termales</h2>
+          <p class="body" data-reveal>Un complejo de 20 espacios pensado para el bienestar durante las cuatro estaciones.</p>
+        </div>
+        <div class="gallery__nav" data-reveal>
+          <button class="round-btn" type="button" data-gallery-prev aria-label="Fotos anteriores"><svg class="flip"><use href="#i-arrow"/></svg></button>
+          <button class="round-btn" type="button" data-gallery-next aria-label="Fotos siguientes"><svg><use href="#i-arrow"/></svg></button>
+        </div>
       </div>
-      <div class="gallery__viewport">
+      <div class="filters container" role="group" aria-label="Filtrar fotos por categoría" data-reveal>
+        <button class="filter is-active" type="button" aria-pressed="true" data-filter="all">Todas <span class="filter__n">32</span></button>
+        <button class="filter" type="button" aria-pressed="false" data-filter="piscinas">Piscinas termales <span class="filter__n">6</span></button>
+        <button class="filter" type="button" aria-pressed="false" data-filter="familias">Familias <span class="filter__n">5</span></button>
+        <button class="filter" type="button" aria-pressed="false" data-filter="gastronomia">Gastronomía <span class="filter__n">6</span></button>
+        <button class="filter" type="button" aria-pressed="false" data-filter="bienestar">Bienestar <span class="filter__n">5</span></button>
+        <button class="filter" type="button" aria-pressed="false" data-filter="paseo">Paseo comercial <span class="filter__n">5</span></button>
+        <button class="filter" type="button" aria-pressed="false" data-filter="complejo">El complejo <span class="filter__n">5</span></button>
+      </div>
+      <p class="sr-only" aria-live="polite" data-gallery-status></p>
+      <div class="gallery__viewport" tabindex="0" role="region" aria-label="Fotos del complejo, desplazables en horizontal" data-gallery-viewport>
         <ul class="gallery__track" role="list" data-gallery-track>
-          <li class="gcard gcard--wide">
+          <li class="gcard" data-cat="piscinas">
             <figure>
-              <img src="/img/plaza-aguas.webp" alt="Vista cenital de la Plaza de Aguas rodeada de locales" width="1280" height="720" loading="lazy" decoding="async" />
-              <figcaption><span>Plaza de Aguas</span><span class="gcard__n">04</span></figcaption>
+              <img src="/img/termas/piscinas-1.webp" alt="Visitante en una piscina termal cubierta" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Piscinas termales</figcaption>
             </figure>
           </li>
-          <li class="gcard">
+          <li class="gcard" data-cat="familias">
             <figure>
-              <img src="/img/gente-pileta.webp" alt="Visitantes en bata junto a una piscina termal cubierta" width="1600" height="900" loading="lazy" decoding="async" />
-              <figcaption><span>Piscinas cubiertas</span><span class="gcard__n">17</span></figcaption>
+              <img src="/img/termas/familias-1.webp" alt="Niño bajando por un tobogán en la piscina infantil" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Familias</figcaption>
             </figure>
           </li>
-          <li class="gcard gcard--tall">
+          <li class="gcard" data-cat="gastronomia">
             <figure>
-              <img src="/img/hidromasaje.webp" alt="Cascada de hidromasaje sobre una piscina termal" width="1280" height="720" loading="lazy" decoding="async" />
-              <figcaption><span>Modo Relax</span><span class="gcard__n">10</span></figcaption>
+              <img src="/img/termas/gastro-01.webp" alt="Café con crema en una mesa de madera del patio gastronómico" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Gastronomía</figcaption>
             </figure>
           </li>
-          <li class="gcard gcard--wide">
+          <li class="gcard" data-cat="bienestar">
             <figure>
-              <img src="/img/piscinas-cubiertas.webp" alt="Edificio de piscinas cubiertas con fachada vidriada" width="1280" height="720" loading="lazy" decoding="async" />
-              <figcaption><span>Edificio termal</span><span class="gcard__n">17</span></figcaption>
+              <img src="/img/termas/bienestar-1.webp" alt="Masaje con piedras calientes" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Bienestar</figcaption>
             </figure>
           </li>
-          <li class="gcard">
+          <li class="gcard" data-cat="paseo">
             <figure>
-              <img src="/img/interior-2.webp" alt="Interior luminoso del sector de piscinas con ventanales al parque" width="1280" height="720" loading="lazy" decoding="async" />
-              <figcaption><span>Interior termal</span><span class="gcard__n">17</span></figcaption>
+              <img src="/img/termas/paseo-03.webp" alt="Local del paseo comercial con mesas de madera" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Paseo comercial</figcaption>
             </figure>
           </li>
-          <li class="gcard gcard--tall">
+          <li class="gcard" data-cat="complejo">
             <figure>
-              <img src="/img/gente-relax.webp" alt="Personas disfrutando de una piscina termal" width="1280" height="720" loading="lazy" decoding="async" />
-              <figcaption><span>Bienestar</span><span class="gcard__n">19</span></figcaption>
+              <img src="/img/termas/complejo-1.webp" alt="Vista cenital de la Plaza de Aguas" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>El complejo</figcaption>
             </figure>
           </li>
-          <li class="gcard gcard--wide">
+          <li class="gcard" data-cat="piscinas">
             <figure>
-              <img src="/img/complejo-acceso.webp" alt="Acceso al complejo con el muro de piedra Termas Tapalqué" width="1280" height="720" loading="lazy" decoding="async" />
-              <figcaption><span>Acceso al complejo</span><span class="gcard__n">02</span></figcaption>
+              <img src="/img/termas/piscinas-2.webp" alt="Dos amigas descansan en reposeras junto a la piscina" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Piscinas termales</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="familias">
+            <figure>
+              <img src="/img/termas/familias-2.webp" alt="Madre e hija sentadas en el borde de la piscina" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Familias</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="gastronomia">
+            <figure>
+              <img src="/img/termas/gastro-02.webp" alt="Frente del patio gastronómico" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Gastronomía</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="bienestar">
+            <figure>
+              <img src="/img/termas/bienestar-2.webp" alt="Recepción del spa" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Bienestar</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="paseo">
+            <figure>
+              <img src="/img/termas/paseo-05.webp" alt="Frascos de miel y productos regionales" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Paseo comercial</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="complejo">
+            <figure>
+              <img src="/img/termas/complejo-2.webp" alt="Muro de acceso con el nombre Termas Tapalqué" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>El complejo</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="piscinas">
+            <figure>
+              <img src="/img/termas/piscinas-3.webp" alt="Pareja disfrutando del agua termal" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Piscinas termales</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="familias">
+            <figure>
+              <img src="/img/termas/familias-3.webp" alt="Visitante en bata en el sector infantil" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Familias</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="gastronomia">
+            <figure>
+              <img src="/img/termas/gastro-03.webp" alt="Hamburguesas y papas fritas en el patio gastronómico" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Gastronomía</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="bienestar">
+            <figure>
+              <img src="/img/termas/bienestar-3.webp" alt="Clase de yoga al aire libre" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Bienestar</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="paseo">
+            <figure>
+              <img src="/img/termas/paseo-06.webp" alt="Fiambres y conservas en un local regional" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Paseo comercial</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="complejo">
+            <figure>
+              <img src="/img/termas/complejo-3.webp" alt="Edificio de piscinas cubiertas" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>El complejo</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="piscinas">
+            <figure>
+              <img src="/img/termas/piscinas-4.webp" alt="Visitantes en la piscina termal con banco sumergido" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Piscinas termales</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="familias">
+            <figure>
+              <img src="/img/termas/familias-4.webp" alt="Niña en la piscina infantil junto a los juegos" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Familias</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="gastronomia">
+            <figure>
+              <img src="/img/termas/gastro-04.webp" alt="Café servido en la cafetería del complejo" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Gastronomía</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="bienestar">
+            <figure>
+              <img src="/img/termas/bienestar-4.webp" alt="Grupo practicando yoga en el parque del complejo" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Bienestar</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="paseo">
+            <figure>
+              <img src="/img/termas/paseo-07.webp" alt="Local de artesanías del paseo comercial" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Paseo comercial</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="complejo">
+            <figure>
+              <img src="/img/termas/complejo-4.webp" alt="Vista aérea del complejo termal" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>El complejo</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="piscinas">
+            <figure>
+              <img src="/img/termas/piscinas-5.webp" alt="Personas en el agua termal junto a los ventanales" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Piscinas termales</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="familias">
+            <figure>
+              <img src="/img/termas/familias-5.webp" alt="Chica bajo la cascada de los juegos de agua" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Familias</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="gastronomia">
+            <figure>
+              <img src="/img/termas/gastro-06.webp" alt="Salón luminoso de la cafetería" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Gastronomía</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="bienestar">
+            <figure>
+              <img src="/img/termas/bienestar-5.webp" alt="Postura de yoga al aire libre" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Bienestar</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="paseo">
+            <figure>
+              <img src="/img/termas/paseo-08.webp" alt="Estanterías con productos regionales" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Paseo comercial</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="complejo">
+            <figure>
+              <img src="/img/termas/complejo-5.webp" alt="Interior del edificio termal con ventanales" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>El complejo</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="piscinas">
+            <figure>
+              <img src="/img/termas/piscinas-6.webp" alt="Hombre relajándose en la piscina termal cubierta" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Piscinas termales</figcaption>
+            </figure>
+          </li>
+          <li class="gcard" data-cat="gastronomia">
+            <figure>
+              <img src="/img/termas/gastro-07.webp" alt="Restaurante del complejo con mesas de madera" width="600" height="1067" loading="lazy" decoding="async" draggable="false" />
+              <figcaption>Gastronomía</figcaption>
             </figure>
           </li>
         </ul>
       </div>
-      <ul class="amenities container" role="list">
-        <li>Piscinas cubiertas</li><li>Piscinas descubiertas</li><li>Piscinas infantiles</li><li>Plaza de Aguas</li><li>Modo Relax</li><li>Patio gastronómico</li><li>Heladería y cafetería</li><li>SUM</li><li>Juegos infantiles</li><li>Laguna</li><li>Artesanías y regionales</li><li>Informes turísticos</li>
-      </ul>
+      <div class="gallery__progress container" aria-hidden="true"><span data-gallery-progress></span></div>
     </section>
 
     <!-- ============ UBICACIÓN ============ -->
@@ -504,7 +876,7 @@
       <div class="container">
         <div class="location__head">
           <div>
-            <p class="eyebrow" data-reveal><span class="eyebrow__num">09</span> Ubicación</p>
+            <p class="eyebrow" data-reveal><span class="eyebrow__num">08</span> Ubicación</p>
             <h2 class="display" id="loc-title" data-reveal>A minutos de la ciudad, en el centro de la provincia</h2>
           </div>
           <div class="seg" role="group" aria-label="Vista del mapa" data-reveal>
@@ -542,7 +914,7 @@
     <section class="section destino" id="destino" aria-labelledby="destino-title">
       <div class="container">
         <div class="destino__head">
-          <p class="eyebrow" data-reveal><span class="eyebrow__num">10</span> El destino</p>
+          <p class="eyebrow" data-reveal><span class="eyebrow__num">09</span> El destino</p>
           <h2 class="display" id="destino-title" data-reveal>Tapalqué. Un destino con identidad</h2>
           <p class="lead" data-reveal>Tapalqué combina naturaleza, bienestar, cultura e identidad local en una propuesta turística con potencial de crecimiento.</p>
         </div>
@@ -576,7 +948,7 @@
     <section class="section contact" id="contacto" aria-labelledby="contact-title">
       <div class="container contact__grid">
         <div class="contact__copy">
-          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">11</span> Contacto</p>
+          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">10</span> Contacto</p>
           <h2 class="display" id="contact-title" data-reveal>Hablemos del proyecto</h2>
           <p class="lead lead--light" data-reveal>Si estás interesado en desarrollar el primer hotel 4 estrellas de Tapalqué, completá el formulario para recibir información sobre el lote, el proyecto y las condiciones de venta.</p>
           <figure class="contact__figure media-frame" data-reveal>
