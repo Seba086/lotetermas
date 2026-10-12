@@ -2,7 +2,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 const FOS = 0.5;
-const FOT = 0.6;
+const FOT = 0.5;
 const FLOOR_H = 4; // m por nivel (referencia)
 const nf = new Intl.NumberFormat('es-AR');
 
@@ -10,7 +10,6 @@ const nf = new Intl.NumberFormat('es-AR');
 export function initVolume({ reduced }) {
   const g = document.querySelector('[data-volume-g]');
   const pbOut = document.querySelector('[data-vol-pb]');
-  const upOut = document.querySelector('[data-vol-up]');
   const COS = Math.cos(Math.PI / 6), SIN = 0.5;
   const S_SCALE = 2.05; // px por metro
   const Z = 3; // exageración vertical para que la altura se lea
@@ -34,7 +33,8 @@ export function initVolume({ reduced }) {
         <polygon class="v-face ${cls}-top" points="${pts([[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]])}"/>`;
     };
 
-    const kPb = Math.sqrt(FOS), kUp = Math.sqrt(FOT - FOS);
+    // el nivel superior solo existe si el FOT supera al FOS
+    const kPb = Math.sqrt(FOS), kUp = Math.sqrt(Math.max(0, FOT - FOS));
     const w = W * kPb, d = D * kPb;
     const w2 = W * kUp, d2 = D * kUp;
     const x0 = (W - w) / 2, y0 = (D - d) / 2;
@@ -44,9 +44,8 @@ export function initVolume({ reduced }) {
     g.innerHTML = `
       <polygon class="v-plate" points="${pts([[0, 0], [W, 0], [W, D], [0, D]])}"/>
       ${box(x0, y0, 0, w, d, h1, 'v-pb')}
-      ${box(x0 + (w - w2) * 0.15, y0 + (d - d2) * 0.15, h1, w2, d2, h2, 'v-up')}`;
+      ${kUp > 0 ? box(x0 + (w - w2) * 0.15, y0 + (d - d2) * 0.15, h1, w2, d2, h2, 'v-up') : ''}`;
     pbOut.textContent = nf.format(area * FOS);
-    upOut.textContent = nf.format(area * (FOT - FOS));
   }
 
   if (!reduced) {

@@ -105,7 +105,7 @@ motion.subs.push((paused) => inViewVideos.forEach((v) => (paused ? v.pause() : v
 const heroSlider = $('[data-hs]');
 if (reduced) heroSlider.querySelectorAll('video').forEach((v) => { v.removeAttribute('autoplay'); v.pause(); });
 initSlider(heroSlider, { reduced, motion });
-initGallery($('[data-gallery]'), { reduced });
+initGallery($('[data-gallery]'), { reduced, motion });
 const volume = initVolume({ reduced });
 initWaffles({ reduced });
 initStory($('[data-story]'), { reduced, motion });
@@ -113,7 +113,7 @@ initStages($('[data-stages]'), { reduced, motion });
 
 /* ---------- calculadora del lote ---------- */
 const FOS = 0.5;
-const FOT = 0.6;
+const FOT = 0.5;
 const MAX = 10000;
 const range = $('[data-lot-range]');
 const out = {

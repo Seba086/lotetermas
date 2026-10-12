@@ -372,7 +372,6 @@
         <img class="is-active" src="/img/etapas/inauguracion.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
         <img src="/img/etapas/piletas-infantiles.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
         <img src="/img/etapas/hotel.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
-        <img src="/img/etapas/piscinas-exteriores.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
       </div>
       <div class="container">
         <h2 class="stages__title" id="stages-title" data-reveal>Un complejo en crecimiento</h2>
@@ -380,7 +379,6 @@
           <img class="is-active" src="/img/etapas/inauguracion.webp" alt="Ilustración de la inauguración del complejo, con público alrededor de la Plaza de Aguas" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
           <img src="/img/etapas/piletas-infantiles.webp" alt="Ilustración de las piletas infantiles con juegos de agua" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
           <img src="/img/etapas/hotel.webp" alt="Ilustración del hotel proyectado dentro del complejo termal" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
-          <img src="/img/etapas/piscinas-exteriores.webp" alt="Ilustración del sector de piscinas exteriores" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
         </div>
         <ol class="stages__list" role="list" data-reveal>
           <li>
@@ -410,15 +408,6 @@
               <span class="stage__d">El primer hotel 4 estrellas dentro del complejo. La etapa que hoy se ofrece a inversores.</span>
             </button>
           </li>
-          <li>
-            <button class="stage" type="button" aria-pressed="false" data-stage>
-              <span class="stage__bar" aria-hidden="true"><span></span></span>
-              <span class="stage__n">04</span>
-              <span class="stage__status">Proyectado</span>
-              <span class="stage__t">Sector piscinas exteriores</span>
-              <span class="stage__d">Ampliación del sector de piscinas al aire libre.</span>
-            </button>
-          </li>
         </ol>
       </div>
     </section>
@@ -432,14 +421,15 @@
             <p class="eyebrow" data-reveal><span class="eyebrow__num">04</span> El lote en números</p>
             <h2 class="display" id="lot-calc-title" data-reveal>Superficie edificable</h2>
           </div>
-          <p class="body" data-reveal>La superficie del lote se define según lo que oferte y proponga el inversor: entre <strong>5.000&nbsp;m²</strong> y <strong>10.000&nbsp;m²</strong>. Mové el control para ver cuánto se puede construir.</p>
+          <p class="body" data-reveal>La superficie del lote se define según lo que oferte y proponga el inversor: entre <strong>5.000&nbsp;m²</strong> y <strong>10.000&nbsp;m²</strong>.</p>
         </div>
 
         <div class="calc card card--sand" data-reveal>
           <div class="calc__control">
             <label class="calc__label" for="lot-size">Superficie del lote</label>
             <output class="calc__output" for="lot-size" id="lot-size-out"><span data-lot-out>7.500</span>&nbsp;m²</output>
-            <input class="range" type="range" id="lot-size" name="lot-size" min="5000" max="10000" step="250" value="7500" aria-describedby="lot-size-hint" data-lot-range />
+            <p class="calc__hint" id="lot-size-help">Mové el control para ver cuánto se puede construir.</p>
+            <input class="range" type="range" id="lot-size" name="lot-size" min="5000" max="10000" step="250" value="7500" aria-describedby="lot-size-help" data-lot-range />
             <div class="range__ticks" id="lot-size-hint" aria-hidden="true"><span>5.000&nbsp;m²</span><span>10.000&nbsp;m²</span></div>
           </div>
 
@@ -467,8 +457,8 @@
               <div class="meter" aria-hidden="true"><span data-fos-bar></span></div>
             </div>
             <div class="result">
-              <p class="result__label">Superficie total construible (FOT 0,6)</p>
-              <p class="result__value result__value--accent"><span data-fot-out>4.500</span><small>m²</small></p>
+              <p class="result__label">Superficie total construible (FOT 0,5)</p>
+              <p class="result__value result__value--accent"><span data-fot-out>3.750</span><small>m²</small></p>
               <div class="meter meter--accent" aria-hidden="true"><span data-fot-bar></span></div>
             </div>
             <p class="sr-only" aria-live="polite" data-calc-live></p>
@@ -483,12 +473,11 @@
               <span class="chart__note">Se actualiza con la superficie elegida</span>
             </figcaption>
             <svg class="volume__svg" viewBox="0 0 400 280" role="img" aria-labelledby="vol-title" data-volume>
-              <title id="vol-title">Volumetría isométrica: planta baja que ocupa la huella máxima y un nivel superior parcial que completa el FOT 0,6.</title>
+              <title id="vol-title">Volumetría isométrica: una planta baja que ocupa la huella máxima (FOS 0,5) y completa el FOT 0,5.</title>
               <g data-volume-g></g>
             </svg>
             <ul class="legend" role="list">
               <li><span class="legend__key legend__key--pb" aria-hidden="true"></span>Planta baja · hasta <strong data-vol-pb>3.750</strong>&nbsp;m²</li>
-              <li><span class="legend__key legend__key--up" aria-hidden="true"></span>Nivel superior · <strong data-vol-up>750</strong>&nbsp;m²</li>
             </ul>
           </figure>
 
@@ -554,7 +543,7 @@
             <div class="pcard__body">
               <svg aria-hidden="true"><use href="#i-layers"/></svg>
               <p class="pcard__label">Indicadores urbanísticos</p>
-              <p class="pcard__value">FOS 0,5 · FOT 0,6</p>
+              <p class="pcard__value">FOS 0,5 · FOT 0,5</p>
               <p class="pcard__text">Factor de ocupación de suelo y factor de ocupación total.</p>
             </div>
           </li>
@@ -575,24 +564,24 @@
     <section class="section terms" aria-labelledby="terms-title">
       <div class="container">
         <div class="terms__head">
-          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">05</span> Condiciones de venta</p>
+          <p class="eyebrow" data-reveal><span class="eyebrow__num">05</span> Condiciones de venta</p>
           <h2 class="display" id="terms-title" data-reveal>Régimen de adjudicación</h2>
-          <p class="lead lead--light" data-reveal>La transferencia del inmueble por parte del Municipio de Tapalqué se realiza mediante el régimen de <strong>cargo obligatorio y resolutorio</strong> (arts. 354 y 356 del Código Civil y Comercial de la Nación), garantizando la transparencia de la operación y el destino exclusivo del terreno para el desarrollo turístico.</p>
+          <p class="lead" data-reveal>La transferencia del inmueble por parte del Municipio de Tapalqué se realiza mediante el régimen de <strong>cargo obligatorio y resolutorio</strong> (arts. 354 y 356 del Código Civil y Comercial de la Nación), garantizando la transparencia de la operación y el destino exclusivo del terreno para el desarrollo turístico.</p>
         </div>
 
         <ol class="timeline" role="list" data-timeline>
           <li class="timeline__step">
-            <span class="timeline__dot" aria-hidden="true"></span>
+            <span class="timeline__dot timeline__dot--done" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="m4 8.4 2.6 2.6L12 5.4"/></svg></span>
             <p class="timeline__k">Inicio</p>
             <p class="timeline__t">Firma del boleto de compraventa</p>
           </li>
           <li class="timeline__step">
-            <span class="timeline__dot" aria-hidden="true"></span>
+            <span class="timeline__dot timeline__dot--done" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="m4 8.4 2.6 2.6L12 5.4"/></svg></span>
             <p class="timeline__k">Desarrollo</p>
             <p class="timeline__t">Proyecto, construcción y equipamiento</p>
           </li>
           <li class="timeline__step is-accent">
-            <span class="timeline__dot" aria-hidden="true"></span>
+            <span class="timeline__dot timeline__dot--pulse" aria-hidden="true"></span>
             <p class="timeline__k">Hasta 5 años</p>
             <p class="timeline__t">Obra finalizada y habilitación municipal</p>
           </li>
@@ -600,17 +589,17 @@
         </ol>
 
         <ul class="conditions" role="list">
-          <li class="condition card card--dark" data-reveal>
+          <li class="condition card" data-reveal>
             <svg aria-hidden="true"><use href="#i-building"/></svg>
             <h3>Destino exclusivo</h3>
             <p>Construcción, equipamiento y explotación comercial de un establecimiento hotelero de categoría 3 o 4 estrellas, con un mínimo de 60 plazas.</p>
           </li>
-          <li class="condition card card--dark" data-reveal>
+          <li class="condition card" data-reveal>
             <svg aria-hidden="true"><use href="#i-clock"/></svg>
             <h3>Plazo de ejecución</h3>
             <p>El inversor contará con un plazo máximo de 5 años a partir de la firma del boleto de compraventa para la finalización de las obras y su habilitación municipal.</p>
           </li>
-          <li class="condition card card--dark" data-reveal>
+          <li class="condition card" data-reveal>
             <svg aria-hidden="true"><use href="#i-scale"/></svg>
             <h3>Condición resolutoria</h3>
             <p>El incumplimiento en los plazos u obligaciones conllevará la resolución del contrato de pleno derecho y la reversión del dominio al Municipio.</p>
@@ -657,7 +646,7 @@
         <button class="filter" type="button" aria-pressed="false" data-filter="complejo">El complejo <span class="filter__n">5</span></button>
       </div>
       <p class="sr-only" aria-live="polite" data-gallery-status></p>
-      <div class="gallery__viewport" tabindex="0" role="region" aria-label="Fotos del complejo, desplazables en horizontal" data-gallery-viewport>
+      <div class="gallery__viewport" tabindex="0" role="region" aria-label="Fotos del complejo, en movimiento continuo; se detienen al pasar el cursor o al recibir foco" data-gallery-viewport>
         <ul class="gallery__track" role="list" data-gallery-track>
           <li class="gcard" data-cat="piscinas">
             <figure>
@@ -853,7 +842,6 @@
           </li>
         </ul>
       </div>
-      <div class="gallery__progress container" aria-hidden="true"><span data-gallery-progress></span></div>
     </section>
 
     <!-- ============ UBICACIÓN ============ -->
