@@ -68,18 +68,14 @@ export function initMap(el, { reduced = false } = {}) {
     })
     .addTo(entorno);
 
-  const centro = L.latLng(PLACES.centro);
-  L.marker(centro, { icon: pin('city', 'Centro de Tapalqué'), keyboard: false })
-    .bindTooltip('Centro de Tapalqué', {
-      permanent: true, direction: narrow ? 'bottom' : 'left', offset: narrow ? [0, 12] : [-12, 0], className: 'map-label',
-    })
-    .addTo(entorno);
-
-  const dCentro = lote.distanceTo(centro);
-  L.polyline([lote, centro], { color: accent, weight: 2, dashArray: '6 6' }).addTo(entorno);
-  const mid = L.latLng((lote.lat + centro.lat) / 2, (lote.lng + centro.lng) / 2);
+  // Referencia de distancia: la línea sale del lote en dirección a La Plata
+  const laPlata = L.latLng(PLACES.ciudades.laplata.coords);
+  const dLaPlata = lote.distanceTo(laPlata);
+  L.polyline([lote, laPlata], { color: accent, weight: 2, dashArray: '6 6' }).addTo(entorno);
+  const t = 650 / dLaPlata; // la etiqueta queda a unos 650 m del lote, sobre la línea
+  const towards = L.latLng(lote.lat + (laPlata.lat - lote.lat) * t, lote.lng + (laPlata.lng - lote.lng) * t);
   L.tooltip({ permanent: true, direction: 'center', className: 'map-label map-label--dist', interactive: false })
-    .setLatLng(mid).setContent(`${fmtKm(dCentro)} km`).addTo(entorno);
+    .setLatLng(towards).setContent(`La Plata · ${fmtKm(dLaPlata)} km`).addTo(entorno);
 
   /* ---------- capa región ---------- */
   const region = L.layerGroup();
@@ -87,7 +83,7 @@ export function initMap(el, { reduced = false } = {}) {
     .bindTooltip('Termas Tapalqué', { permanent: true, direction: 'top', offset: [0, -14], className: 'map-label map-label--lot' })
     .addTo(region);
 
-  const distances = { centro: dCentro };
+  const distances = {};
   Object.entries(PLACES.ciudades).forEach(([key, city]) => {
     const ll = L.latLng(city.coords);
     const d = lote.distanceTo(ll);
@@ -105,9 +101,13 @@ export function initMap(el, { reduced = false } = {}) {
     const d = distances[dd.dataset.dist];
     if (d != null) dd.innerHTML = `${fmtKm(d)}<small>km</small>`;
   });
+  document.querySelectorAll('[data-dist-text]').forEach((el) => {
+    const d = distances[el.dataset.distText];
+    if (d != null) el.textContent = `· ${fmtKm(d)} km`;
+  });
 
   /* ---------- vistas ---------- */
-  const entornoBounds = L.latLngBounds([centro]).extend(lotPoly.getBounds()).extend(termas.getBounds());
+  const entornoBounds = L.latLngBounds([towards]).extend(lotPoly.getBounds()).extend(termas.getBounds());
   const regionBounds = L.latLngBounds([lote, ...Object.values(PLACES.ciudades).map((c) => c.coords)]);
   const pad = narrow
     ? { paddingTopLeft: [110, 70], paddingBottomRight: [70, 60] }

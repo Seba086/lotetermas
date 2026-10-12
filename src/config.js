@@ -22,7 +22,6 @@ export const PLACES = {
     ],
   },
   termas: [-36.3496181, -60.0077553],
-  centro: [-36.3563106, -60.0251321],
   ciudades: {
     // dir: lado de la etiqueta en el mapa
     azul: { name: 'Azul', coords: [-36.7770, -59.8585], dir: 'right' },
