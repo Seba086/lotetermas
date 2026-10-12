@@ -38,13 +38,6 @@
     <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14H5ZM5 19l7-7"/></symbol>
     <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></symbol>
     <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5 5-2Z"/></symbol>
-    <symbol id="i-thermal" viewBox="0 0 24 24"><path d="M4 17c1.5 1.3 3 1.3 4.5 0s3-1.3 4.5 0 3 1.3 4.5 0 2.5-1.3 2.5-1.3M8 12c-1-1.5 1-3 0-4.5S8 5 8 5M12 12c-1-1.5 1-3 0-4.5S12 5 12 5M16 12c-1-1.5 1-3 0-4.5S16 5 16 5"/></symbol>
-    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6l1-7Z"/></symbol>
-    <symbol id="i-flame" viewBox="0 0 24 24"><path d="M12 21a6 6 0 0 0 6-6c0-4-3-6-4-10-2 2-3 4-3 6-1-1-2-2-2-3-2 2-3 4-3 7a6 6 0 0 0 6 6Z"/></symbol>
-    <symbol id="i-pipe" viewBox="0 0 24 24"><path d="M3 8h8a3 3 0 0 1 3 3v10M3 12h7v9M18 3v5M15 5.5h6"/></symbol>
-    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2 9a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01"/></symbol>
-    <symbol id="i-road" viewBox="0 0 24 24"><path d="M8 3 4 21M16 3l4 18M12 4v3M12 11v3M12 18v2"/></symbol>
-    <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3Z"/></symbol>
     <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.8a3.5 3.5 0 0 1 0 6.4M18 14a6.5 6.5 0 0 1 3.5 6"/></symbol>
     <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z"/></symbol>
     <symbol id="i-plate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M3 4v6a2 2 0 0 0 2 2v8M5 4v5M21 4c-2 0-3 2-3 5s1 3 3 3v8"/></symbol>
@@ -323,8 +316,6 @@
       <div class="story__shade" aria-hidden="true"></div>
 
       <div class="story__stage container">
-        <p class="eyebrow eyebrow--light story__eyebrow">El lote en números</p>
-
         <div class="story__steps" aria-live="off" data-hs-live>
           <div id="story-1" class="story__step is-active" role="group" aria-roledescription="diapositiva" aria-label="1 de 3" data-hs-slide>
             <h2 class="story__phrase" id="story-title" data-hs-title data-story-phrase>Todo comienza en este lote</h2>
@@ -375,35 +366,66 @@
       </div>
     </section>
 
+    <!-- ============ TERMAS: ETAPAS ============ -->
+    <section class="section stages" aria-labelledby="stages-title" data-stages>
+      <div class="stages__bg" aria-hidden="true">
+        <img class="is-active" src="/img/etapas/inauguracion.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
+        <img src="/img/etapas/piletas-infantiles.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
+        <img src="/img/etapas/hotel.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
+        <img src="/img/etapas/piscinas-exteriores.webp" alt="" width="960" height="540" loading="lazy" decoding="async" data-stages-bg />
+      </div>
+      <div class="container">
+        <h2 class="stages__title" id="stages-title" data-reveal>Un complejo en crecimiento</h2>
+        <div class="stages__art" data-reveal>
+          <img class="is-active" src="/img/etapas/inauguracion.webp" alt="Ilustración de la inauguración del complejo, con público alrededor de la Plaza de Aguas" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
+          <img src="/img/etapas/piletas-infantiles.webp" alt="Ilustración de las piletas infantiles con juegos de agua" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
+          <img src="/img/etapas/hotel.webp" alt="Ilustración del hotel proyectado dentro del complejo termal" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
+          <img src="/img/etapas/piscinas-exteriores.webp" alt="Ilustración del sector de piscinas exteriores" width="960" height="540" loading="lazy" decoding="async" data-stages-img />
+        </div>
+        <ol class="stages__list" role="list" data-reveal>
+          <li>
+            <button class="stage is-done is-active" type="button" aria-pressed="true" data-stage>
+              <span class="stage__bar" aria-hidden="true"><span></span></span>
+              <span class="stage__n">01</span>
+              <span class="stage__status">Concretado</span>
+              <span class="stage__t">Inauguración</span>
+              <span class="stage__d">Piscinas cubiertas y descubiertas, Plaza de Aguas, patio gastronómico y paseo comercial.</span>
+            </button>
+          </li>
+          <li>
+            <button class="stage is-done" type="button" aria-pressed="false" data-stage>
+              <span class="stage__bar" aria-hidden="true"><span></span></span>
+              <span class="stage__n">02</span>
+              <span class="stage__status">Concretado</span>
+              <span class="stage__t">Piletas infantiles</span>
+              <span class="stage__d">Piscinas y juegos para las familias, que amplían el público del complejo.</span>
+            </button>
+          </li>
+          <li>
+            <button class="stage is-next" type="button" aria-pressed="false" data-stage>
+              <span class="stage__bar" aria-hidden="true"><span></span></span>
+              <span class="stage__n">03</span>
+              <span class="stage__status">La oportunidad</span>
+              <span class="stage__t">Hotel</span>
+              <span class="stage__d">El primer hotel 4 estrellas dentro del complejo. La etapa que hoy se ofrece a inversores.</span>
+            </button>
+          </li>
+          <li>
+            <button class="stage" type="button" aria-pressed="false" data-stage>
+              <span class="stage__bar" aria-hidden="true"><span></span></span>
+              <span class="stage__n">04</span>
+              <span class="stage__status">Proyectado</span>
+              <span class="stage__t">Sector piscinas exteriores</span>
+              <span class="stage__d">Ampliación del sector de piscinas al aire libre.</span>
+            </button>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <!-- ============ LOTE: CALCULADORA ============ -->
     <section class="section lot" aria-labelledby="lot-calc-title">
       <div class="container">
-
-        <!-- Captura simbólica sobre imagen de drone -->
-        <figure class="lotshot" data-reveal data-lotshot>
-          <div class="lotshot__frame">
-            <img src="/img/lote-campo.webp" alt="Vista aérea del Complejo Termas Tapalqué con el sector propuesto para el hotel marcado sobre el campo" width="1600" height="900" loading="lazy" decoding="async" />
-            <svg class="lotshot__svg" viewBox="0 0 1600 900" aria-hidden="true">
-              <polygon class="lotshot__area" points="150,500 430,510 610,427 330,417" />
-              <polygon class="lotshot__edge" points="150,500 430,510 610,427 330,417" pathLength="1" data-lotshot-edge />
-              <g class="lotshot__pin" transform="translate(380 463)">
-                <circle class="lotshot__pulse" r="18" />
-                <circle r="9" />
-              </g>
-            </svg>
-            <ul class="lotshot__tags" role="list">
-              <li class="lotshot__tag lotshot__tag--lot" style="--x:23.75%; --y:44%">Lote hotelero<span class="lotshot__extra"> · 5.000–10.000&nbsp;m²</span></li>
-              <li class="lotshot__tag" style="--x:37%; --y:22%">Plaza de Aguas</li>
-              <li class="lotshot__tag" style="--x:56%; --y:23%">Piscinas cubiertas</li>
-              <li class="lotshot__tag" style="--x:61%; --y:43%">Sector piscinas exteriores</li>
-              <li class="lotshot__tag" style="--x:79%; --y:55%">Laguna</li>
-            </ul>
-          </div>
-          <figcaption class="lotshot__cap">
-            <span>Captura ilustrativa</span>
-            <span>La ubicación y la superficie definitivas del lote se acuerdan con el Municipio.</span>
-          </figcaption>
-        </figure>
 
         <div class="lot__head">
           <div>
@@ -549,56 +571,11 @@
       </div>
     </section>
 
-    <!-- ============ SERVICIOS ============ -->
-    <section class="section services" aria-labelledby="services-title">
-      <div class="container">
-        <div class="services__head">
-          <p class="eyebrow" data-reveal><span class="eyebrow__num">05</span> Servicios disponibles</p>
-          <h2 class="display" id="services-title" data-reveal>Un lote conectado a todo lo que necesita</h2>
-          <p class="body" data-reveal>El lote se integra a la infraestructura del complejo termal y a las redes de la ciudad.</p>
-        </div>
-
-        <div class="hub" data-hub>
-          <svg class="hub__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <g class="hub__base">
-              <line pathLength="1" x1="50" y1="50" x2="50" y2="12" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="23.1" />
-              <line pathLength="1" x1="50" y1="50" x2="90" y2="50" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="76.9" />
-              <line pathLength="1" x1="50" y1="50" x2="50" y2="88" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="76.9" />
-              <line pathLength="1" x1="50" y1="50" x2="10" y2="50" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="23.1" />
-            </g>
-            <g class="hub__flow">
-              <line pathLength="1" x1="50" y1="50" x2="50" y2="12" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="23.1" />
-              <line pathLength="1" x1="50" y1="50" x2="90" y2="50" /><line pathLength="1" x1="50" y1="50" x2="78.3" y2="76.9" />
-              <line pathLength="1" x1="50" y1="50" x2="50" y2="88" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="76.9" />
-              <line pathLength="1" x1="50" y1="50" x2="10" y2="50" /><line pathLength="1" x1="50" y1="50" x2="21.7" y2="23.1" />
-            </g>
-          </svg>
-
-          <div class="hub__core">
-            <img src="/img/lote-campo.webp" alt="" width="1600" height="900" loading="lazy" decoding="async" />
-            <span class="hub__core-label">El lote</span>
-          </div>
-
-          <ul class="hub__nodes" role="list">
-            <li class="hub__node" style="--x:50%; --y:12%"><svg aria-hidden="true"><use href="#i-thermal"/></svg><span>Agua termal del complejo</span></li>
-            <li class="hub__node" style="--x:78.3%; --y:23.1%"><svg aria-hidden="true"><use href="#i-drop"/></svg><span>Agua potable</span></li>
-            <li class="hub__node" style="--x:90%; --y:50%"><svg aria-hidden="true"><use href="#i-bolt"/></svg><span>Energía eléctrica</span></li>
-            <li class="hub__node" style="--x:78.3%; --y:76.9%"><svg aria-hidden="true"><use href="#i-flame"/></svg><span>Gas natural</span></li>
-            <li class="hub__node" style="--x:50%; --y:88%"><svg aria-hidden="true"><use href="#i-pipe"/></svg><span>Desagües cloacales</span></li>
-            <li class="hub__node" style="--x:21.7%; --y:76.9%"><svg aria-hidden="true"><use href="#i-wifi"/></svg><span>Conectividad</span></li>
-            <li class="hub__node" style="--x:10%; --y:50%"><svg aria-hidden="true"><use href="#i-road"/></svg><span>Acceso por Ruta Provincial 50</span></li>
-            <li class="hub__node" style="--x:21.7%; --y:23.1%"><svg aria-hidden="true"><use href="#i-light"/></svg><span>Alumbrado del complejo</span></li>
-          </ul>
-        </div>
-        <p class="footnote services__note">*Listado de referencia, sujeto a confirmación del Municipio.</p>
-      </div>
-    </section>
-
     <!-- ============ CONDICIONES ============ -->
     <section class="section terms" aria-labelledby="terms-title">
       <div class="container">
         <div class="terms__head">
-          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">06</span> Condiciones de venta</p>
+          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">05</span> Condiciones de venta</p>
           <h2 class="display" id="terms-title" data-reveal>Régimen de adjudicación</h2>
           <p class="lead lead--light" data-reveal>La transferencia del inmueble por parte del Municipio de Tapalqué se realiza mediante el régimen de <strong>cargo obligatorio y resolutorio</strong> (arts. 354 y 356 del Código Civil y Comercial de la Nación), garantizando la transparencia de la operación y el destino exclusivo del terreno para el desarrollo turístico.</p>
         </div>
@@ -652,43 +629,9 @@
       <div class="video-band__shade" aria-hidden="true"></div>
       <div class="video-band__content container">
         <span class="band-logo" data-logo data-reveal></span>
-        <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">07</span> Termas Tapalqué</p>
+        <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">06</span> Termas Tapalqué</p>
         <h2 class="masthead masthead--band" id="termas-title" data-reveal>Siempre es temporada alta</h2>
         <p class="lead lead--light" data-reveal>Un nuevo proyecto hotelero para un destino que sigue creciendo.</p>
-      </div>
-    </section>
-
-    <!-- ============ TERMAS: ETAPAS ============ -->
-    <section class="section stages" aria-labelledby="stages-title">
-      <div class="container">
-        <h2 class="heading" id="stages-title" data-reveal>Un complejo en crecimiento</h2>
-        <ol class="stages__list" role="list" data-stages>
-          <li class="stage is-done">
-            <span class="stage__n">01</span>
-            <span class="stage__status">Concretado</span>
-            <h3 class="stage__t">Inauguración</h3>
-            <p class="stage__d">Piscinas cubiertas y descubiertas, Plaza de Aguas, patio gastronómico y paseo comercial.</p>
-          </li>
-          <li class="stage is-done">
-            <span class="stage__n">02</span>
-            <span class="stage__status">Concretado</span>
-            <h3 class="stage__t">Piletas infantiles</h3>
-            <p class="stage__d">Piscinas y juegos para las familias, que amplían el público del complejo.</p>
-          </li>
-          <li class="stage is-next">
-            <span class="stage__n">03</span>
-            <span class="stage__status">La oportunidad</span>
-            <h3 class="stage__t">Hotel</h3>
-            <p class="stage__d">El primer hotel 4 estrellas dentro del complejo. La etapa que hoy se ofrece a inversores.</p>
-          </li>
-          <li class="stage">
-            <span class="stage__n">04</span>
-            <span class="stage__status">Proyectado</span>
-            <h3 class="stage__t">Sector piscinas exteriores</h3>
-            <p class="stage__d">Ampliación del sector de piscinas al aire libre.</p>
-          </li>
-          <span class="stages__progress" aria-hidden="true"><span data-stages-line></span></span>
-        </ol>
       </div>
     </section>
 
@@ -918,7 +861,7 @@
       <div class="container">
         <div class="location__head">
           <div>
-            <p class="eyebrow" data-reveal><span class="eyebrow__num">08</span> Ubicación</p>
+            <p class="eyebrow" data-reveal><span class="eyebrow__num">07</span> Ubicación</p>
             <h2 class="display" id="loc-title" data-reveal>A minutos de la ciudad, en el centro de la provincia</h2>
           </div>
           <div class="seg" role="group" aria-label="Vista del mapa" data-reveal>
@@ -956,7 +899,7 @@
     <section class="section destino" id="destino" aria-labelledby="destino-title">
       <div class="container">
         <div class="destino__head">
-          <p class="eyebrow" data-reveal><span class="eyebrow__num">09</span> El destino</p>
+          <p class="eyebrow" data-reveal><span class="eyebrow__num">08</span> El destino</p>
           <h2 class="display" id="destino-title" data-reveal>Tapalqué. Un destino con identidad</h2>
           <p class="lead" data-reveal>Tapalqué combina naturaleza, bienestar, cultura e identidad local en una propuesta turística con potencial de crecimiento.</p>
         </div>
@@ -990,7 +933,7 @@
     <section class="section contact" id="contacto" aria-labelledby="contact-title">
       <div class="container contact__grid">
         <div class="contact__copy">
-          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">10</span> Contacto</p>
+          <p class="eyebrow eyebrow--light" data-reveal><span class="eyebrow__num">09</span> Contacto</p>
           <h2 class="display" id="contact-title" data-reveal>Hablemos del proyecto</h2>
           <p class="lead lead--light" data-reveal>Si estás interesado en desarrollar el primer hotel 4 estrellas de Tapalqué, completá el formulario para recibir información sobre el lote, el proyecto y las condiciones de venta.</p>
           <figure class="contact__figure media-frame" data-reveal>

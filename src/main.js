@@ -7,8 +7,9 @@ import logoSvg from './assets/logo.svg?raw';
 import { CONFIG } from './config.js';
 import { initSlider } from './slider.js';
 import { initGallery } from './gallery.js';
-import { initVolume, initWaffles, initHub, initLotShot } from './lot-graphics.js';
+import { initVolume, initWaffles } from './lot-graphics.js';
 import { initStory } from './story.js';
+import { initStages } from './stages.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -107,9 +108,8 @@ initSlider(heroSlider, { reduced, motion });
 initGallery($('[data-gallery]'), { reduced });
 const volume = initVolume({ reduced });
 initWaffles({ reduced });
-initHub({ reduced });
-initLotShot({ reduced });
 initStory($('[data-story]'), { reduced, motion });
+initStages($('[data-stages]'), { reduced, motion });
 
 /* ---------- calculadora del lote ---------- */
 const FOS = 0.5;
@@ -326,7 +326,7 @@ if (!reduced) {
     scrollTrigger: { trigger: '.bars', start: 'top 80%', once: true },
   });
 
-  // Línea de plazos y de etapas
+  // Línea de plazos
   gsap.from('[data-timeline-line]', {
     scaleX: window.innerWidth > 700 ? 0 : 1, scaleY: window.innerWidth > 700 ? 1 : 0, ease: 'none',
     scrollTrigger: { trigger: '[data-timeline]', start: 'top 75%', end: 'bottom 55%', scrub: true },
@@ -334,14 +334,6 @@ if (!reduced) {
   gsap.from('.timeline__step', {
     opacity: 0, y: 20, stagger: 0.18, duration: 1, ease: 'expo.out',
     scrollTrigger: { trigger: '[data-timeline]', start: 'top 75%', once: true },
-  });
-  gsap.from('[data-stages-line]', {
-    scaleX: 0, ease: 'none',
-    scrollTrigger: { trigger: '[data-stages]', start: 'top 80%', end: 'top 35%', scrub: true },
-  });
-  gsap.from('.stage', {
-    opacity: 0, y: 30, stagger: 0.1, duration: 1.1, ease: 'expo.out',
-    scrollTrigger: { trigger: '[data-stages]', start: 'top 80%', once: true },
   });
 
   // Planta del lote: dibujo del contorno
