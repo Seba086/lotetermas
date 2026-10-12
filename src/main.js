@@ -31,7 +31,7 @@ if (!reduced) {
   gsap.ticker.lagSmoothing(0);
 }
 
-// Anclas internas: respetan Lenis y el header fijo
+// Anclas internas: respetan Lenis
 $$('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {
     const id = a.getAttribute('href');
@@ -45,23 +45,18 @@ $$('a[href^="#"]').forEach((a) => {
   });
 });
 
-/* ---------- header ---------- */
-const header = $('[data-header]');
+/* ---------- botón de WhatsApp: aparece al dejar el hero ---------- */
 const hero = $('.hero');
 const waBtn = $('[data-wa]');
-let lastY = 0;
-function onScrollHeader() {
-  const y = window.scrollY;
-  const pastHero = y > hero.offsetHeight - 80;
-  header.classList.toggle('is-solid', pastHero);
-  waBtn.classList.toggle('is-hidden', y < hero.offsetHeight * 0.6);
-  header.classList.toggle('is-hidden', pastHero && y > lastY + 4 && y > 900);
-  if (y < lastY - 4) header.classList.remove('is-hidden');
-  lastY = y;
+const storyEl = $('[data-story]');
+function onScrollWa() {
+  // tampoco tapa los controles del slider del lote
+  const r = storyEl.getBoundingClientRect();
+  const overControls = r.bottom > window.innerHeight - 40 && r.bottom < window.innerHeight + 140;
+  waBtn.classList.toggle('is-hidden', window.scrollY < hero.offsetHeight * 0.6 || overControls);
 }
-window.addEventListener('scroll', onScrollHeader, { passive: true });
-onScrollHeader();
-header.addEventListener('focusin', () => header.classList.remove('is-hidden'));
+window.addEventListener('scroll', onScrollWa, { passive: true });
+onScrollWa();
 
 // Nav activa
 $$('.site-nav a').forEach((link) => {
@@ -77,7 +72,11 @@ $$('.site-nav a').forEach((link) => {
 
 /* ---------- estado de pausa compartido (slider + videos de fondo) ---------- */
 // Con reduced motion todo arranca pausado; el botón de pausa del hero controla ambos
-const motion = { paused: reduced, onChange: null };
+const motion = {
+  paused: reduced,
+  subs: [],
+  set(p) { this.paused = p; this.subs.forEach((fn) => fn(p)); },
+};
 
 /* ---------- videos de las bandas: cargan y se reproducen solo a la vista ---------- */
 const bandVideos = $$('.video-band [data-video], .story [data-video]');
@@ -99,7 +98,7 @@ const videoIO = new IntersectionObserver((entries) => {
   });
 }, { rootMargin: '200px 0px' });
 bandVideos.forEach((v) => videoIO.observe(v));
-motion.onChange = (paused) => inViewVideos.forEach((v) => (paused ? v.pause() : v.play().catch(() => {})));
+motion.subs.push((paused) => inViewVideos.forEach((v) => (paused ? v.pause() : v.play().catch(() => {}))));
 
 /* ---------- hero, galería y gráficos ---------- */
 const heroSlider = $('[data-hs]');
@@ -110,7 +109,7 @@ const volume = initVolume({ reduced });
 initWaffles({ reduced });
 initHub({ reduced });
 initLotShot({ reduced });
-initStory($('[data-story]'), { reduced });
+initStory($('[data-story]'), { reduced, motion });
 
 /* ---------- calculadora del lote ---------- */
 const FOS = 0.5;

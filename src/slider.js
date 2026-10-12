@@ -3,9 +3,9 @@ import gsap from 'gsap';
 const DURATION = 7; // segundos por diapositiva
 
 /**
- * Slider del hero: 4 diapositivas con avance automático, pestañas con progreso,
- * anterior / siguiente, pausa (también pausa los videos de fondo), teclado y swipe.
- * `motion` es el estado compartido de pausa de toda la página.
+ * Slider del hero y de "El lote en números": diapositivas con avance automático,
+ * pestañas con progreso, anterior / siguiente, pausa (también pausa los videos de
+ * fondo), teclado y swipe. `motion` es el estado compartido de pausa de toda la página.
  */
 export function initSlider(root, { reduced, motion }) {
   const slides = [...root.querySelectorAll('[data-hs-slide]')];
@@ -16,7 +16,9 @@ export function initSlider(root, { reduced, motion }) {
   let progress = null;
   let hoverPause = false;
   let inView = true;
+  let entered = false;
 
+  const LINES = '[data-hs-title] .line > span, [data-hs-title] .story__line';
   const bar = (i) => tabs[i].querySelector('.hs__bar span');
   const video = (i) => slides[i].querySelector('video');
 
@@ -68,15 +70,21 @@ export function initSlider(root, { reduced, motion }) {
 
     if (!reduced) {
       const media = incoming.querySelector('.hs__bg');
-      const lines = incoming.querySelectorAll('[data-hs-title] .line > span');
+      const lines = incoming.querySelectorAll(LINES);
       const items = incoming.querySelectorAll('[data-hs-item]');
       gsap.set(prev, { zIndex: 1 });
       gsap.set(incoming, { zIndex: 2 });
-      gsap.fromTo(incoming, { opacity: 0 }, {
-        opacity: 1, duration: 1.1, ease: 'power2.inOut',
-        onComplete: () => gsap.set(prev, { opacity: 0 }),
-      });
-      gsap.fromTo(media, { scale: 1.12, xPercent: 2 * dir }, { scale: 1, xPercent: 0, duration: 2.2, ease: 'expo.out' });
+      if (media) {
+        gsap.fromTo(incoming, { opacity: 0 }, {
+          opacity: 1, duration: 1.1, ease: 'power2.inOut',
+          onComplete: () => gsap.set(prev, { opacity: 0 }),
+        });
+        gsap.fromTo(media, { scale: 1.12, xPercent: 2 * dir }, { scale: 1, xPercent: 0, duration: 2.2, ease: 'expo.out' });
+      } else {
+        // fondo compartido: el texto saliente se va antes de que entre el nuevo
+        gsap.to(prev, { opacity: 0, duration: 0.3, ease: 'power2.in', overwrite: true });
+        gsap.fromTo(incoming, { opacity: 0 }, { opacity: 1, duration: 0.4, delay: 0.25, overwrite: true });
+      }
       gsap.fromTo(lines, { yPercent: 110 }, { yPercent: 0, duration: 1.3, ease: 'expo.out', stagger: 0.1, delay: 0.25 });
       gsap.fromTo(items, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 1, ease: 'expo.out', stagger: 0.08, delay: 0.45 });
     } else {
@@ -85,20 +93,27 @@ export function initSlider(root, { reduced, motion }) {
     startProgress();
   }
 
-  function setPaused(p) {
-    motion.paused = p;
+  function applyPaused(p) {
     playBtn.setAttribute('aria-pressed', String(p));
     playBtn.setAttribute('aria-label', p ? 'Reproducir presentación y videos' : 'Pausar presentación y videos');
     if (p) progress?.pause(); else if (!hoverPause && inView) progress?.resume();
     syncVideos();
-    motion.onChange?.(p);
+  }
+  motion.subs.push(applyPaused);
+
+  // Entrada de la diapositiva actual, la primera vez que el slider se ve
+  function enter() {
+    entered = true;
+    if (reduced) return;
+    gsap.fromTo(slides[index].querySelectorAll(LINES), { yPercent: 110 }, { yPercent: 0, duration: 1.4, ease: 'expo.out', stagger: 0.12, delay: 0.15 });
+    gsap.fromTo(slides[index].querySelectorAll('[data-hs-item]'), { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.1, delay: 0.5 });
   }
 
   // Controles
   tabs.forEach((t, i) => t.addEventListener('click', () => go(i, i > index ? 1 : -1, true)));
   root.querySelector('[data-hs-prev]').addEventListener('click', () => go((index - 1 + slides.length) % slides.length, -1, true));
   root.querySelector('[data-hs-next]').addEventListener('click', () => go((index + 1) % slides.length, 1, true));
-  playBtn.addEventListener('click', () => setPaused(!motion.paused));
+  playBtn.addEventListener('click', () => motion.set(!motion.paused));
 
   // Teclado en las pestañas (patrón tablist)
   root.querySelector('.hs__tabs').addEventListener('keydown', (e) => {
@@ -132,9 +147,10 @@ export function initSlider(root, { reduced, motion }) {
     if (Math.abs(dx) > 50) go((index + (dx < 0 ? 1 : -1) + slides.length) % slides.length, dx < 0 ? 1 : -1, true);
   });
 
-  // Sin reproducir cuando el hero no se ve
+  // Sin reproducir cuando el slider no se ve
   new IntersectionObserver(([entry]) => {
     inView = entry.isIntersecting;
+    if (inView && !entered) { enter(); startProgress(); }
     if (inView && !motion.paused && !hoverPause) progress?.resume(); else progress?.pause();
     syncVideos();
   }, { threshold: 0.2 }).observe(root);
@@ -142,9 +158,9 @@ export function initSlider(root, { reduced, motion }) {
   // Estado inicial
   setA11y();
   if (!reduced) {
-    gsap.fromTo(slides[0].querySelectorAll('[data-hs-title] .line > span'), { yPercent: 110 }, { yPercent: 0, duration: 1.4, ease: 'expo.out', stagger: 0.12, delay: 0.15 });
-    gsap.fromTo(slides[0].querySelectorAll('[data-hs-item]'), { opacity: 0 }, { opacity: 1, duration: 1, stagger: 0.1, delay: 0.5 });
+    gsap.set(slides[0].querySelectorAll(LINES), { yPercent: 110 });
+    gsap.set(slides[0].querySelectorAll('[data-hs-item]'), { opacity: 0 });
   }
-  setPaused(motion.paused);
+  applyPaused(motion.paused);
   startProgress();
 }
