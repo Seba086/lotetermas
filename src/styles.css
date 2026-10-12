@@ -740,9 +740,9 @@ html { -webkit-tap-highlight-color: rgba(224, 89, 42, .15); }
   .map { height: 62svh; min-height: 380px; }
 }
 
-.distances { display: grid; grid-template-columns: repeat(6, 1fr); margin-top: var(--spacing-40); }
+.distances { display: grid; grid-template-columns: repeat(5, 1fr); row-gap: var(--spacing-30); margin-top: var(--spacing-40); }
 .distances > div { padding: var(--spacing-15) var(--spacing-20) 0 0; border-top: 1px solid var(--color-espresso-ink); }
-.distances dt { font-size: var(--text-caption); color: var(--muted); margin-bottom: var(--spacing-8); min-height: 2.8em; }
+.distances dt { font-size: var(--text-caption); color: var(--muted); margin-bottom: var(--spacing-8); }
 .distances dd { font-family: var(--font-azeret-mono); font-weight: 500; font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
 .distances dd small { font-family: var(--font-systemia); font-size: 14px; letter-spacing: 0; margin-left: 4px; color: var(--muted); }
 .distances > div:first-child dd { color: var(--accent-ink); }

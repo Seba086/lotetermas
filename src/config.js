@@ -30,5 +30,10 @@ export const PLACES = {
     tandil: { name: 'Tandil', coords: [-37.3217, -59.1332], dir: 'right' },
     mardelplata: { name: 'Mar del Plata', coords: [-38.0055, -57.5426], dir: 'top' },
     caba: { name: 'Buenos Aires', coords: [-34.6037, -58.3816], dir: 'top' },
+    laplata: { name: 'La Plata', coords: [-34.9214, -57.9544], dir: 'right' },
+    saladillo: { name: 'Saladillo', coords: [-35.6373, -59.7781], dir: 'right' },
+    chivilcoy: { name: 'Chivilcoy', coords: [-34.8957, -60.0167], dir: 'left' },
+    bolivar: { name: 'Bolívar', coords: [-36.2300, -61.1140], dir: 'left' },
+    bahiablanca: { name: 'Bahía Blanca', coords: [-38.7183, -62.2663], dir: 'bottom' },
   },
 };

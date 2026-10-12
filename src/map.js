@@ -84,7 +84,7 @@ export function initMap(el, { reduced = false } = {}) {
   /* ---------- capa región ---------- */
   const region = L.layerGroup();
   L.marker(lote, { icon: pin('lot', 'Termas Tapalqué'), keyboard: false, zIndexOffset: 1000 })
-    .bindTooltip('Termas Tapalqué', { permanent: true, direction: 'left', offset: [-16, 0], className: 'map-label map-label--lot' })
+    .bindTooltip('Termas Tapalqué', { permanent: true, direction: 'top', offset: [0, -14], className: 'map-label map-label--lot' })
     .addTo(region);
 
   const distances = { centro: dCentro };
