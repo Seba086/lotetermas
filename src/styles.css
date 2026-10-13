@@ -636,6 +636,9 @@ html { -webkit-tap-highlight-color: rgba(224, 89, 42, .15); }
   position: relative; display: grid; grid-template-columns: repeat(3, 1fr);
   margin-block: var(--spacing-100) var(--spacing-60);
 }
+/* dos líneas de pasos seguidas: la segunda queda pegada a la primera */
+.timeline:has(+ .timeline) { margin-bottom: var(--spacing-40); }
+.timeline + .timeline { margin-top: 0; }
 .timeline__line { position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: rgba(46, 37, 33, .22); }
 .timeline__line span { display: block; height: 100%; width: 100%; background: var(--color-espresso-ink); transform-origin: left; }
 .timeline__step { position: relative; z-index: 1; padding-right: var(--spacing-30); }
