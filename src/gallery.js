@@ -52,7 +52,7 @@ export function initGallery(root, { reduced, motion }) {
   // Lleva la posición a la copia del medio y la aplica: el salto no se ve
   function apply() {
     const w = setWidth();
-    if (!w) return;
+    if (!(w > 0)) return; // sin copias visibles el ancho da 0 o negativo: el while no terminaría
     while (pos < w * 0.5) pos += w;
     while (pos >= w * 1.5) pos -= w;
     viewport.scrollLeft = pos;

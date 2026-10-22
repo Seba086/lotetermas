@@ -5,13 +5,16 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pdf": "node scripts/export-pdf.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "pdf-lib": "^1.17.1",
+    "puppeteer-core": "^25.16.0",
     "vite": "^8.3.1"
   },
   "dependencies": {

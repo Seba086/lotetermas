@@ -2,3 +2,5 @@ node_modules
 dist
 # Material original pesado (las versiones optimizadas están en public/)
 /assets/
+# PDF generado con npm run pdf
+/exports/
