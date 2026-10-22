@@ -1,10 +1,11 @@
 /**
- * Exporta la landing a un PDF: una página por bloque, con el alto exacto del bloque
- * (nada queda cortado entre hojas) y una franja con el número y el nombre del bloque.
- * Los sliders se despliegan: cada slide va debajo de la anterior.
+ * Exporta la landing a un PDF de hojas iguales (1440 × 900 px, 16:10 apaisado).
+ * Cada hoja lleva una franja con el número y el nombre del bloque. Los sliders se
+ * despliegan (una slide por hoja) y los bloques largos se reparten en varias hojas
+ * o se reacomodan para entrar en una.
  *
  * Uso:  npm run build && npm run pdf
- * Opcional: CHROME_PATH=ruta/a/chrome  ·  PDF_PREVIEW=carpeta (guarda un PNG por bloque)
+ * Opcional: CHROME_PATH=ruta/a/chrome  ·  PDF_PREVIEW=carpeta (guarda un PNG por hoja)
  */
 import { preview } from 'vite';
 import puppeteer from 'puppeteer-core';
@@ -12,27 +13,45 @@ import { PDFDocument } from 'pdf-lib';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const WIDTH = 1440;
-const SLIDE_H = 900; // alto de cada slide desplegada (una pantalla de escritorio)
+const W = 1440;
+const H = 900;
+const LABEL_H = 56;
+const AREA = H - LABEL_H; // alto disponible para el contenido de cada hoja
 const OUT_DIR = 'exports';
 const OUT_FILE = join(OUT_DIR, 'Lote-Hotelero-Termas-Tapalque.pdf');
 const PREVIEW_DIR = process.env.PDF_PREVIEW;
 
-// [selector, nombre del bloque, detalle opcional]
-const BLOCKS = [
-  ['#inicio', 'Portada', '4 slides'],
-  ['#oportunidad', 'La oportunidad'],
-  ['#corazon', 'Ubicación privilegiada'],
-  ['#oportunidad-unica', 'Una oportunidad única'],
-  ['#lote', 'El lote', '3 slides'],
-  ['[data-stages]', 'Un complejo en crecimiento', '3 etapas'],
-  ['section.lot', 'El lote en números'],
-  ['section.terms', 'Condiciones de venta'],
-  ['#termas', 'Termas Tapalqué'],
-  ['#galeria', 'Galería del complejo'],
-  ['#ubicacion', 'Ubicación y distancias'],
-  ['#destino', 'El destino'],
-  ['#contacto', 'Contacto'],
+// Fotos representativas de la galería (una por categoría)
+const GALLERY_PICKS = ['piscinas-mujeres', 'familias-1', 'gastro-01', 'bienestar-1', 'complejo-1'];
+
+/**
+ * Hojas del PDF. `n` y `name` arman la franja superior; varias hojas pueden compartir bloque.
+ * slide: índice de slide a mostrar · hide: partes de la sección que no van en esta hoja.
+ */
+const PAGES = [
+  { n: 1, name: 'Portada', sel: '#inicio', slide: 0 },
+  { n: 1, name: 'Portada', sel: '#inicio', slide: 1 },
+  { n: 1, name: 'Portada', sel: '#inicio', slide: 2 },
+  { n: 1, name: 'Portada', sel: '#inicio', slide: 3 },
+  { n: 2, name: 'La oportunidad', sel: '#oportunidad' },
+  { n: 3, name: 'Ubicación privilegiada', sel: '#corazon' },
+  { n: 4, name: 'Una oportunidad única', sel: '#oportunidad-unica', hide: ['.chart', '.flow', '.unique__stays'] },
+  { n: 4, name: 'Una oportunidad única', sel: '#oportunidad-unica', hide: ['.unique__head', '.unique__metric .metric', '.unique__copy', '.unique__stays'] },
+  { n: 4, name: 'Una oportunidad única', sel: '#oportunidad-unica', hide: ['.unique__head', '.unique__demand'] },
+  { n: 5, name: 'El lote', sel: '#lote', slide: 0 },
+  { n: 5, name: 'El lote', sel: '#lote', slide: 1 },
+  { n: 5, name: 'El lote', sel: '#lote', slide: 2 },
+  { n: 6, name: 'Un complejo en crecimiento', sel: '[data-stages]' },
+  { n: 7, name: 'El lote en números', sel: 'section.lot', hide: ['.lot__graphs', '.specs'] },
+  { n: 7, name: 'El lote en números', sel: 'section.lot', hide: ['.lot__head', '.calc', '.specs'] },
+  { n: 7, name: 'El lote en números', sel: 'section.lot', hide: ['.lot__head', '.calc', '.lot__graphs'] },
+  { n: 8, name: 'Condiciones de venta', sel: 'section.terms', hide: ['.conditions'] },
+  { n: 8, name: 'Condiciones de venta', sel: 'section.terms', hide: ['.timeline'] },
+  { n: 9, name: 'Termas Tapalqué', sel: '#termas' },
+  { n: 10, name: 'Galería del complejo', sel: '#galeria' },
+  { n: 11, name: 'Ubicación y distancias', sel: '#ubicacion' },
+  { n: 12, name: 'El destino', sel: '#destino' },
+  { n: 13, name: 'Contacto', sel: '#contacto' },
 ];
 
 const CHROME_CANDIDATES = [
@@ -43,53 +62,52 @@ const CHROME_CANDIDATES = [
   '/usr/bin/google-chrome',
 ].filter(Boolean);
 
-/* Estilos del modo impresión: despliegan sliders y quitan lo que solo sirve en pantalla */
+/* Modo impresión: hojas de alto fijo, sliders desplegados y bloques reacomodados */
 const PRINT_CSS = `
-  .site-header, .wa, .skip-link, .hs__controls, .gallery__nav, .gallery__progress { display: none !important; }
+  .site-header, .wa, .skip-link, .hs__controls, .gallery__nav, .gallery__progress, .filters, .footer__word { display: none !important; }
   html, body { scroll-behavior: auto !important; }
-
-  /* Al imprimir, vh/svh se miden contra la hoja: se fijan los valores de una pantalla de ${SLIDE_H}px */
-  .video-band { min-height: ${SLIDE_H}px !important; }
-  .stages { padding-block: 72px !important; }
-  .map { height: ${Math.min(Math.round(SLIDE_H * 0.78), 720)}px !important; }
+  html body [data-pdf-hidden] { display: none !important; } /* partes que van en otra hoja */
 
   .pdf-label {
-    display: flex; align-items: center; gap: 16px; height: 56px; padding: 0 var(--gutter);
+    display: flex; align-items: center; gap: 16px; height: ${LABEL_H}px; padding: 0 var(--gutter);
     background: var(--color-espresso-ink); color: var(--color-porcelain-cream);
     font-family: var(--font-systemia); font-size: 15px; font-weight: 500;
   }
   .pdf-label__n { font-family: var(--font-azeret-mono); color: var(--accent-on-dark); }
-  .pdf-label__d { color: rgba(252, 246, 236, .6); font-weight: 400; }
   .pdf-label__site { margin-left: auto; font-size: 12px; color: rgba(252, 246, 236, .6); font-weight: 400; }
-  .pdf-chip {
-    position: absolute; top: 24px; right: var(--gutter); z-index: 5;
-    padding: 6px 14px; border-radius: 9999px; background: var(--color-porcelain-cream); color: var(--color-espresso-ink);
-    font-family: var(--font-azeret-mono); font-size: 12px; font-weight: 500;
+
+  /* Cada sección ocupa el alto de la hoja con el contenido centrado */
+  .pdf-page { min-height: ${AREA}px !important; height: auto !important; box-sizing: border-box; }
+  .section.pdf-page, .gallery.pdf-page {
+    display: flex !important; flex-direction: column; justify-content: center;
+    padding-block: 44px !important;
   }
+  .section.pdf-page > .container, .gallery.pdf-page > * { width: 100%; }
 
-  /* Hero: las 4 slides una debajo de la otra */
-  .hero { height: auto !important; min-height: 0 !important; }
+  /* Hero y El lote: una slide por hoja */
+  .hero { min-height: 0 !important; }
   .hs__slides { position: static !important; }
-  .hs__slide { position: relative !important; height: ${SLIDE_H}px; opacity: 1 !important; overflow: hidden; }
-  .hs__slide + .hs__slide { border-top: 2px solid var(--color-porcelain-cream); }
-  .hs__content { padding-bottom: 80px !important; }
-
-  /* El lote: cada slide con su propio fondo pleno */
-  .story { height: auto !important; padding: 0 !important; }
+  .hs__slide { position: relative !important; height: ${AREA}px; opacity: 1 !important; overflow: hidden; }
+  .hs__content { padding-bottom: 72px !important; }
+  .story { padding: 0 !important; }
   .story__media, .story__shade { display: none !important; }
   .story__stage.container { max-width: none; padding: 0; }
   .story__steps { position: static !important; display: block !important; margin: 0 !important; }
   .story__step {
     position: relative !important; inset: auto !important; opacity: 1 !important;
-    min-height: ${SLIDE_H}px; display: grid !important; align-content: center; justify-items: center; gap: 30px;
-    padding: 80px var(--gutter) !important;
+    height: ${AREA}px; display: grid !important; align-content: center; justify-items: center; gap: 30px;
+    padding: 0 var(--gutter) !important;
     background:
       radial-gradient(ellipse 70% 60% at 50% 50%, rgba(46, 37, 33, .45) 0%, rgba(46, 37, 33, 0) 75%),
       linear-gradient(180deg, rgba(46, 37, 33, .6) 0%, rgba(46, 37, 33, .3) 30%, rgba(46, 37, 33, .3) 70%, rgba(46, 37, 33, .65) 100%),
       url(/video/terreno-poster.jpg) center / cover;
   }
-  .story__step + .story__step { border-top: 2px solid var(--color-porcelain-cream); }
   .story__card { position: static !important; }
+  .video-band { min-height: ${AREA}px !important; }
+
+  /* Una oportunidad única: el gráfico y el esquema, lado a lado en su propia hoja */
+  .unique__demand.pdf-pair { grid-template-areas: "metric metric" "flow chart" !important; align-items: center; row-gap: 40px !important; }
+  .unique__stays { margin-top: 0 !important; }
 
   /* Etapas: cada ilustración sobre su card */
   .stages__art { display: none !important; }
@@ -98,14 +116,44 @@ const PRINT_CSS = `
   .stage__bar { display: none !important; }
   .pdf-art { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; margin-bottom: 12px; }
 
-  /* Galería: todas las fotos en grilla, sin las copias del loop */
-  .gcard[aria-hidden="true"] { display: none !important; }
+  /* El lote en números: cada parte en su hoja, sin márgenes heredados */
+  .lot__graphs, .specs { margin-top: 0 !important; }
+  .pcard { min-height: 330px !important; }
+  .calc__hint { display: none !important; } /* el control no se puede mover en el PDF */
+
+  /* Condiciones: la segunda hoja muestra el título y las tres condiciones */
+  .terms__head ~ .conditions { margin-top: 60px; }
+
+  /* Galería: pocas fotos representativas, grandes */
+  .gcard[aria-hidden="true"], .gcard:not(.pdf-pick) { display: none !important; }
+  .gallery__intro { margin-bottom: 40px !important; }
   .gallery__viewport { overflow: visible !important; }
-  .gallery__track { flex-wrap: wrap; width: auto !important; transform: none !important; }
-  .gcard { width: calc((100% - (var(--pdf-cols, 8) - 1) * 15px) / var(--pdf-cols, 8)) !important; }
+  .gallery__track { display: grid !important; grid-template-columns: repeat(5, 1fr); gap: 20px; width: auto !important; transform: none !important; }
+  .gcard { width: auto !important; }
+
+  /* Ubicación: mapa y distancias en dos columnas */
+  #ubicacion .container { display: grid; grid-template-columns: 1.6fr 1fr; column-gap: 48px; align-items: start; }
+  #ubicacion .location__head { grid-column: 1 / -1; margin-bottom: 32px; }
+  #ubicacion .map-wrap { grid-column: 1; grid-row: 2 / span 2; overflow: visible; background: none; }
+  #ubicacion .seg { display: none !important; }
+  /* la leyenda sale del mapa para no tapar Bahía Blanca */
+  #ubicacion .map-legend { position: static !important; max-width: none; margin-top: 14px; padding: 12px 16px; }
+  #ubicacion .map-legend ul { display: flex !important; flex-wrap: wrap; gap: 8px 24px; }
+  #ubicacion .map { border-radius: var(--radius-cards); }
+  #ubicacion .map { height: 430px !important; min-height: 0 !important; }
+  #ubicacion .distances { grid-column: 2; grid-row: 2; margin-top: 0 !important; grid-template-columns: repeat(3, 1fr) !important; row-gap: 22px !important; }
+  #ubicacion .distances dt { margin-bottom: 4px; }
+  #ubicacion .footnote { grid-column: 2; grid-row: 3; }
+
+  /* Destino: fotos más chicas */
+  .destino__head { margin-bottom: 36px !important; }
+  .mosaic { grid-template-rows: repeat(2, 185px) !important; }
+
+  /* Contacto: imagen más baja para que entre con el formulario */
+  .contact__figure { aspect-ratio: 16 / 7 !important; }
 `;
 
-function prepareForPrint(blocks) {
+function prepareForPrint(pages, picks) {
   // Imágenes sin lazy-load y videos reemplazados por su póster (el PDF no imprime video)
   document.querySelectorAll('img[loading="lazy"]').forEach((img) => { img.loading = 'eager'; });
   document.querySelectorAll('video').forEach((v) => {
@@ -116,19 +164,7 @@ function prepareForPrint(blocks) {
     img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
     v.replaceWith(img);
   });
-
-  // Etiquetas de slide
-  const chips = (root, total) => root.forEach((el, i) => {
-    const chip = document.createElement('span');
-    chip.className = 'pdf-chip';
-    chip.textContent = `Slide ${i + 1} de ${total}`;
-    el.append(chip);
-  });
-  const heroSlides = [...document.querySelectorAll('#inicio .hs__slide')];
-  chips(heroSlides, heroSlides.length);
-  const storySteps = [...document.querySelectorAll('#lote .story__step')];
   document.querySelector('#lote')?.classList.remove('is-slider');
-  chips(storySteps, storySteps.length);
 
   // Etapas: copia cada ilustración dentro de su card y quita el resaltado de la animación
   const arts = [...document.querySelectorAll('[data-stages-img]')];
@@ -141,36 +177,49 @@ function prepareForPrint(blocks) {
   });
   document.querySelectorAll('[data-stage]').forEach((s) => s.classList.remove('is-active'));
 
-  // Galería: muestra todas las fotos (por si quedó un filtro activo)
-  const photos = [...document.querySelectorAll('#galeria .gcard:not([aria-hidden="true"])')];
-  photos.forEach((c) => { c.hidden = false; });
-  // columnas que llenen filas completas (33 fotos → 11 por fila); si no hay divisor, 8
-  const cols = [11, 10, 9, 8, 12].find((n) => photos.length % n === 0) ?? 8;
-  document.querySelector('#galeria').style.setProperty('--pdf-cols', String(cols));
+  // Galería: marca las fotos elegidas, en el orden de la lista
+  const track = document.querySelector('#galeria [data-gallery-track]');
+  picks.forEach((name) => {
+    const card = [...track.querySelectorAll('.gcard:not([aria-hidden="true"])')]
+      .find((c) => c.querySelector('img')?.getAttribute('src')?.includes(`/${name}.`));
+    if (card) { card.hidden = false; card.classList.add('pdf-pick'); track.append(card); }
+  });
 
-  // Franja con número y nombre antes de cada bloque
-  blocks.forEach(([sel, name, detail], i) => {
-    const el = document.querySelector(sel);
-    if (!el) throw new Error(`No se encontró el bloque ${sel}`);
+  // Una franja por hoja (se muestra solo la de la hoja actual)
+  pages.forEach((p, i) => {
+    if (!document.querySelector(p.sel)) throw new Error(`No se encontró el bloque ${p.sel}`);
     const label = document.createElement('div');
     label.className = 'pdf-label';
-    label.dataset.block = String(i);
-    label.innerHTML = `<span class="pdf-label__n">${String(i + 1).padStart(2, '0')}</span><span>${name}</span>`
-      + (detail ? `<span class="pdf-label__d">· ${detail}</span>` : '')
+    label.dataset.page = String(i);
+    label.innerHTML = `<span class="pdf-label__n">${String(p.n).padStart(2, '0')}</span><span>${p.name}</span>`
       + '<span class="pdf-label__site">Lote hotelero · Termas Tapalqué</span>';
-    el.before(label);
-    el.dataset.pdfBlock = String(i);
+    document.querySelector('main').prepend(label);
   });
 }
 
-function showOnly(i, last) {
+function showPage(p, i) {
   document.querySelectorAll('main > *, body > footer').forEach((el) => { el.style.display = 'none'; });
-  const shown = [...document.querySelectorAll(`.pdf-label[data-block="${i}"], [data-pdf-block="${i}"]`)];
-  if (last) shown.push(document.querySelector('body > footer'));
-  shown.forEach((el) => { el.style.display = ''; });
+  document.querySelectorAll('[data-pdf-hidden]').forEach((el) => { el.style.display = ''; delete el.dataset.pdfHidden; });
+  document.querySelectorAll('.pdf-page').forEach((el) => el.classList.remove('pdf-page'));
+  document.querySelectorAll('.pdf-pair').forEach((el) => el.classList.remove('pdf-pair'));
+
+  const label = document.querySelector(`.pdf-label[data-page="${i}"]`);
+  const section = document.querySelector(p.sel);
+  label.style.display = '';
+  section.style.display = '';
+  section.classList.add('pdf-page');
+
+  // Partes de la sección que van en otras hojas
+  (p.hide || []).forEach((s) => section.querySelectorAll(s).forEach((el) => {
+    el.style.display = 'none'; el.dataset.pdfHidden = '';
+  }));
+  if ((p.hide || []).includes('.unique__metric .metric')) section.querySelector('.unique__demand')?.classList.add('pdf-pair');
+  // Sliders: una slide por hoja
+  section.querySelectorAll('.hs__slide, .story__step').forEach((s, k) => {
+    if (p.slide != null && k !== p.slide) { s.style.display = 'none'; s.dataset.pdfHidden = ''; }
+  });
   window.scrollTo(0, 0);
-  // alto real del bloque (scrollHeight nunca baja del alto de la ventana)
-  return Math.ceil(shown.reduce((h, el) => h + el.getBoundingClientRect().height, 0));
+  return Math.ceil(section.getBoundingClientRect().height);
 }
 
 /* Chrome incrusta las WebP sin comprimir: se pasan a JPEG (calidad .82, hasta 2× el tamaño en pantalla) */
@@ -195,8 +244,8 @@ async function webpToJpeg() {
   }));
 }
 
+// Solo las visibles (las copias ocultas del loop nunca cargan) y con un tope de espera
 async function waitForImages(page) {
-  // Solo las visibles (las copias ocultas del loop nunca cargan) y con un tope de espera
   await page.evaluate(async () => {
     const pending = [...document.images].filter((img) => img.offsetParent !== null && !img.complete);
     const loads = Promise.all(pending.map((img) => new Promise((r) => { img.onload = img.onerror = r; })));
@@ -214,7 +263,7 @@ const browser = await puppeteer.launch({ executablePath });
 
 try {
   const page = await browser.newPage();
-  await page.setViewport({ width: WIDTH, height: SLIDE_H, deviceScaleFactor: 1 });
+  await page.setViewport({ width: W, height: H, deviceScaleFactor: 1 });
   // Movimiento reducido: el sitio muestra cada elemento en su estado final, sin animaciones
   await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
   await page.emulateMediaType('screen');
@@ -229,7 +278,7 @@ try {
     window.scrollTo(0, 0);
   });
   await page.addStyleTag({ content: PRINT_CSS });
-  await page.evaluate(prepareForPrint, BLOCKS);
+  await page.evaluate(prepareForPrint, PAGES, GALLERY_PICKS);
   await waitForImages(page);
   await page.waitForNetworkIdle({ idleTime: 1200, timeout: 60000 }).catch(() => {});
   await page.evaluate(webpToJpeg);
@@ -240,24 +289,36 @@ try {
   out.setSubject('Oportunidad de inversión para el primer hotel dentro del Complejo Termas Tapalqué');
   if (PREVIEW_DIR) mkdirSync(PREVIEW_DIR, { recursive: true });
 
-  for (let i = 0; i < BLOCKS.length; i++) {
-    const height = await page.evaluate(showOnly, i, i === BLOCKS.length - 1);
+  const overflow = [];
+  for (let i = 0; i < PAGES.length; i++) {
+    const p = PAGES[i];
+    const height = await page.evaluate(showPage, p, i);
+    if (p.sel === '#ubicacion') {
+      // el mapa cambió de ancho: se vuelve a encuadrar la región
+      // (los botones están ocultos en el PDF: se usan desde el DOM)
+      // se espera a que el mapa tome su nuevo tamaño antes de encuadrar
+      const clickView = (v) => page.evaluate((view) => document.querySelector(`[data-map-view="${view}"]`).click(), v);
+      await new Promise((r) => setTimeout(r, 500));
+      await clickView('entorno');
+      await new Promise((r) => setTimeout(r, 300));
+      await clickView('region');
+      await page.waitForNetworkIdle({ idleTime: 800, timeout: 30000 }).catch(() => {});
+    }
     await new Promise((r) => setTimeout(r, 300));
     await waitForImages(page);
-    const pdf = await page.pdf({ width: `${WIDTH}px`, height: `${height}px`, printBackground: true, pageRanges: '1' });
-    const [p] = await out.copyPages(await PDFDocument.load(pdf), [0]);
-    out.addPage(p);
-    if (PREVIEW_DIR) {
-      await page.setViewport({ width: WIDTH, height, deviceScaleFactor: 0.5 });
-      await page.screenshot({ path: join(PREVIEW_DIR, `${String(i + 1).padStart(2, '0')}.png`) });
-      await page.setViewport({ width: WIDTH, height: SLIDE_H, deviceScaleFactor: 1 });
-    }
-    console.log(`${String(i + 1).padStart(2, '0')}  ${BLOCKS[i][1]}  (${height}px)`);
+    if (height > AREA) overflow.push(`${i + 1} ${p.name}: ${height}px (máx. ${AREA})`);
+
+    const pdf = await page.pdf({ width: `${W}px`, height: `${H}px`, printBackground: true, pageRanges: '1' });
+    const [pg] = await out.copyPages(await PDFDocument.load(pdf), [0]);
+    out.addPage(pg);
+    if (PREVIEW_DIR) await page.screenshot({ path: join(PREVIEW_DIR, `${String(i + 1).padStart(2, '0')}.png`), clip: { x: 0, y: 0, width: W, height: H } });
+    console.log(`${String(i + 1).padStart(2, '0')}  ${p.name}  (${height}px)`);
   }
 
   mkdirSync(OUT_DIR, { recursive: true });
   writeFileSync(OUT_FILE, await out.save());
-  console.log(`\nPDF listo: ${OUT_FILE}`);
+  console.log(`\nPDF listo: ${OUT_FILE} · ${PAGES.length} hojas de ${W} × ${H} px`);
+  if (overflow.length) console.warn(`\nAtención, contenido que no entra en la hoja:\n${overflow.join('\n')}`);
 } finally {
   await browser.close();
   server.httpServer.close();
