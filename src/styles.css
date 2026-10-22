@@ -647,6 +647,8 @@ html { -webkit-tap-highlight-color: rgba(224, 89, 42, .15); }
 .timeline__dot--done { background: var(--color-espresso-ink); color: var(--color-porcelain-cream); }
 .timeline__dot--done svg { width: 16px; height: 16px; }
 .timeline__dot--done path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+/* pasos pendientes: solo el círculo sobre la línea */
+.timeline__dot--todo { background: var(--color-peach-wash); border: 2px solid var(--color-espresso-ink); }
 /* meta: punto con un círculo que crece y se desvanece en loop */
 .timeline__dot--pulse { background: var(--color-peach-wash); }
 .timeline__dot--pulse::before { content: ""; width: 14px; height: 14px; border-radius: 100%; background: var(--accent-ink); }
@@ -743,13 +745,13 @@ html { -webkit-tap-highlight-color: rgba(224, 89, 42, .15); }
   .map { height: 62svh; min-height: 380px; }
 }
 
-.distances { display: grid; grid-template-columns: repeat(5, 1fr); row-gap: var(--spacing-30); margin-top: var(--spacing-40); }
+.distances { display: grid; grid-template-columns: repeat(9, 1fr); row-gap: var(--spacing-30); margin-top: var(--spacing-40); }
 .distances > div { padding: var(--spacing-15) var(--spacing-20) 0 0; border-top: 1px solid var(--color-espresso-ink); }
 .distances dt { font-size: var(--text-caption); color: var(--muted); margin-bottom: var(--spacing-8); }
 .distances dd { font-family: var(--font-azeret-mono); font-weight: 500; font-size: clamp(26px, 2.6vw, 36px); letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
 .distances dd small { font-family: var(--font-systemia); font-size: 14px; letter-spacing: 0; margin-left: 4px; color: var(--muted); }
-.distances > div:first-child dd { color: var(--accent-ink); }
-@media (max-width: 960px) { .distances { grid-template-columns: repeat(3, 1fr); row-gap: var(--spacing-30); } }
+.distances > .is-ref dd { color: var(--accent-ink); } /* La Plata: referencia de la línea en el mapa */
+@media (max-width: 1200px) { .distances { grid-template-columns: repeat(3, 1fr); row-gap: var(--spacing-30); } }
 @media (max-width: 520px) { .distances { grid-template-columns: 1fr 1fr; } }
 
 /* Leaflet: marcadores y etiquetas con el lenguaje de ayocin */

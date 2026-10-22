@@ -71,11 +71,12 @@ export function initMap(el, { reduced = false } = {}) {
   // Referencia de distancia: la línea sale del lote en dirección a La Plata
   const laPlata = L.latLng(PLACES.ciudades.laplata.coords);
   const dLaPlata = lote.distanceTo(laPlata);
+  const kmLaPlata = PLACES.ciudades.laplata.km;
   L.polyline([lote, laPlata], { color: accent, weight: 2, dashArray: '6 6' }).addTo(entorno);
   const t = 650 / dLaPlata; // la etiqueta queda a unos 650 m del lote, sobre la línea
   const towards = L.latLng(lote.lat + (laPlata.lat - lote.lat) * t, lote.lng + (laPlata.lng - lote.lng) * t);
   L.tooltip({ permanent: true, direction: 'center', className: 'map-label map-label--dist', interactive: false })
-    .setLatLng(towards).setContent(`La Plata · ${fmtKm(dLaPlata)} km`).addTo(entorno);
+    .setLatLng(towards).setContent(`La Plata · ${kmLaPlata} km`).addTo(entorno);
 
   /* ---------- capa región ---------- */
   const region = L.layerGroup();
@@ -86,7 +87,8 @@ export function initMap(el, { reduced = false } = {}) {
   const distances = {};
   Object.entries(PLACES.ciudades).forEach(([key, city]) => {
     const ll = L.latLng(city.coords);
-    const d = lote.distanceTo(ll);
+    // distancia por ruta informada por el cliente; si falta, línea recta
+    const d = city.km != null ? city.km * 1000 : lote.distanceTo(ll);
     distances[key] = d;
     L.polyline([lote, ll], { color: accent, weight: 1.5, dashArray: '5 6', opacity: 0.9 }).addTo(region);
     L.marker(ll, { icon: pin('town', city.name), keyboard: false })
