@@ -219,24 +219,21 @@ form.addEventListener('submit', async (e) => {
   submitLabel.textContent = 'Enviando…';
   status.textContent = '';
   const data = Object.fromEntries(new FormData(form));
-  delete data._honey;
   try {
     const res = await fetch(CONFIG.formEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        ...data,
-        _subject: `Consulta lote hotelero Termas Tapalqué: ${data.empresa || data.nombre}`,
-        _template: 'table',
-        _captcha: 'false',
-      }),
+      credentials: 'same-origin',
+      body: JSON.stringify(data),
     });
-    if (!res.ok) throw new Error(String(res.status));
+    const result = await res.json().catch(() => ({}));
+    if (!res.ok || !result.success) throw new Error(result.message || String(res.status));
     form.reset();
     formDirty = false;
     status.textContent = '¡Gracias! Recibimos tu consulta y te vamos a contactar a la brevedad.';
     submitLabel.textContent = 'Enviado';
-  } catch {
+  } catch (error) {
+    console.error('No se pudo enviar la consulta:', error);
     status.classList.add('is-error');
     status.textContent = 'No pudimos enviar la consulta. Probá de nuevo en unos minutos o escribinos por WhatsApp.';
     submitLabel.textContent = 'Solicitar información';

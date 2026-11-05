@@ -5,8 +5,8 @@ export const CONFIG = {
   whatsappNumber: '5492281585125',
   whatsappMessage: 'Quiero saber más información sobre el Desarrollo del Lote Termas de Tapalqué',
 
-  // Endpoint de FormSubmit. El primer envío dispara un correo de activación a esta casilla.
-  formEndpoint: 'https://formsubmit.co/ajax/nfseba@gmail.com',
+  // Endpoint PHP propio, alojado junto con el sitio en Hostinger.
+  formEndpoint: '/contact.php',
 };
 
 // Coordenadas [lat, lng]. El lote es PROVISORIO: reemplazar por las coordenadas reales.
