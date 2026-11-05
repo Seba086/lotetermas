@@ -62,7 +62,7 @@ if (preg_match('/[\r\n]/', $nombre . $empresa . $email)) {
     respond(422, false, 'Los datos ingresados no son válidos.');
 }
 
-$recipient = 'nfseba@gmail.com';
+$recipient = 'desarrollotermastapalque@gmail.com';
 $subjectText = 'Consulta lote hotelero Termas Tapalqué: ' . ($empresa !== '' ? $empresa : $nombre);
 $subject = function_exists('mb_encode_mimeheader')
     ? mb_encode_mimeheader($subjectText, 'UTF-8')

@@ -19,7 +19,7 @@ Para publicarlo en Hostinger:
    405 indicando que solo acepta `POST`. Si muestra el código PHP, lo descarga o
    devuelve 404, el hosting no está ejecutando el endpoint.
 6. Enviar una consulta de prueba y revisar también la carpeta Spam de
-   `nfseba@gmail.com`.
+   `desarrollotermastapalque@gmail.com`.
 
 Hostinger limita el envío no autenticado mediante `mail()`. Si el sitio necesita
 mayor volumen o entregabilidad, el siguiente paso es usar PHPMailer con SMTP.
