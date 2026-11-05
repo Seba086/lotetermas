@@ -2,8 +2,8 @@
 export const CONFIG = {
   // Número de WhatsApp en formato internacional, solo dígitos (ej.: '5492283123456').
   // Vacío: el botón flotante lleva al formulario de contacto.
-  whatsappNumber: '',
-  whatsappMessage: 'Hola, me interesa recibir información sobre el lote hotelero en Termas Tapalqué.',
+  whatsappNumber: '5492281585125',
+  whatsappMessage: 'Quiero saber más información sobre el Desarrollo del Lote Termas de Tapalqué',
 
   // Endpoint de FormSubmit. El primer envío dispara un correo de activación a esta casilla.
   formEndpoint: 'https://formsubmit.co/ajax/nfseba@gmail.com',
